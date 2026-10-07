@@ -1,0 +1,55 @@
+@import './styles/theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor jumps so section tops are not hidden under the fixed nav. */
+    scroll-padding-top: 4rem;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Body-content links (Program / About / Committee — the page body outside the
+     hero) carry an editorial underline that disappears on hover, while the text
+     shifts to the accent colour. Nav, the hero CTA, and footer logos are excluded. */
+  #program a,
+  #about a,
+  #committee a {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color 150ms ease;
+  }
+
+  #program a:hover,
+  #about a:hover,
+  #committee a:hover {
+    text-decoration-line: none;
+    color: var(--color-accent);
+  }
+}
+
+/* Respect users who prefer reduced motion: kill smooth scroll + transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

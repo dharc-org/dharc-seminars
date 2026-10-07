@@ -1,0 +1,137 @@
+name: Deploy edition
+
+# Manual trigger ONLY. The developer consciously decides when to publish.
+# Never deploy automatically on push to main.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Prevent two manual runs from clobbering the gh-pages branch at the same time.
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the source (main).
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # 2. Install dependencies and build → produces dist/
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # 3. Read the current edition metadata from src/config/edition.js.
+      #    We import the ES module directly so we never re-parse the JS by hand.
+      - name: Read current edition metadata
+        id: edition
+        run: |
+          node --input-type=module <<'EOF'
+          import { pathToFileURL } from 'node:url'
+          import { appendFileSync } from 'node:fs'
+          import { resolve } from 'node:path'
+          const url = pathToFileURL(resolve('src/config/edition.js')).href
+          const { currentEdition } = await import(url)
+          const out = process.env.GITHUB_OUTPUT
+          appendFileSync(out, `slug=${currentEdition.slug}\n`)
+          appendFileSync(out, `name=${currentEdition.name}\n`)
+          appendFileSync(out, `year=${currentEdition.year}\n`)
+          console.log(`Resolved edition: ${currentEdition.slug} (${currentEdition.year})`)
+          EOF
+
+      # 4–9. Publish to gh-pages with archival of any previous edition.
+      - name: Publish to gh-pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLUG: ${{ steps.edition.outputs.slug }}
+          NAME: ${{ steps.edition.outputs.name }}
+          YEAR: ${{ steps.edition.outputs.year }}
+        run: |
+          set -euo pipefail
+
+          GHP=/tmp/gh-pages
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          rm -rf "$GHP"
+
+          # 4. Checkout the gh-pages branch into a separate directory.
+          #    If it does not exist yet (first ever deploy), start an orphan branch.
+          if git ls-remote --exit-code --heads "$REMOTE" gh-pages >/dev/null 2>&1; then
+            echo "Existing gh-pages branch found — cloning it."
+            git clone --branch gh-pages --single-branch "$REMOTE" "$GHP"
+          else
+            echo "No gh-pages branch yet — initializing a fresh orphan branch."
+            git clone --depth 1 "$REMOTE" "$GHP"
+            git -C "$GHP" checkout --orphan gh-pages
+            git -C "$GHP" rm -rf . >/dev/null 2>&1 || true
+            git -C "$GHP" clean -fdx >/dev/null 2>&1 || true
+          fi
+
+          # 5. Archive guard: refuse to overwrite an already-published edition.
+          if [ -d "$GHP/archive/$SLUG" ]; then
+            echo "::error::Archive for '$SLUG' already exists. This edition has already been published. Update edition.js with the new edition's slug before deploying."
+            exit 1
+          fi
+
+          # 6. Root detection: if a previous edition is live at root, freeze it into
+          #    archive/<previous-slug>/ first. The previous slug comes from the
+          #    .edition-meta.json that the previous deploy wrote.
+          if [ -f "$GHP/index.html" ]; then
+            if [ ! -f "$GHP/.edition-meta.json" ]; then
+              echo "::error::Found a site at the root of gh-pages but no .edition-meta.json — cannot determine which slug to archive it under."
+              exit 1
+            fi
+            PREV_SLUG="$(jq -r '.slug' "$GHP/.edition-meta.json")"
+            if [ -z "$PREV_SLUG" ] || [ "$PREV_SLUG" = "null" ]; then
+              echo "::error::.edition-meta.json at root is missing a valid slug."
+              exit 1
+            fi
+            echo "Archiving previous edition '$PREV_SLUG' → archive/$PREV_SLUG/"
+            mkdir -p "$GHP/archive/$PREV_SLUG"
+            # Move everything at root EXCEPT the .git dir and the archive folder itself.
+            find "$GHP" -mindepth 1 -maxdepth 1 \
+              ! -name '.git' \
+              ! -name 'archive' \
+              -exec mv {} "$GHP/archive/$PREV_SLUG/" \;
+          else
+            echo "No existing edition at root — this will be the first edition published here."
+          fi
+
+          # 7. Copy the freshly built dist/ into the root of gh-pages.
+          cp -R "$GITHUB_WORKSPACE/dist/." "$GHP/"
+
+          # 8. Write the edition meta marker. Next year's deploy reads this to know
+          #    which slug to archive the now-current edition under.
+          jq -n --arg slug "$SLUG" --arg name "$NAME" --argjson year "$YEAR" \
+            '{slug: $slug, name: $name, year: $year}' > "$GHP/.edition-meta.json"
+
+          # Disable Jekyll so files/folders are served verbatim.
+          touch "$GHP/.nojekyll"
+
+          # 9. Commit and push to gh-pages.
+          cd "$GHP"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed — skipping commit."
+          else
+            git commit -m "Deploy edition: $SLUG ($YEAR)"
+            git push origin gh-pages
+            echo "Published edition '$SLUG' to gh-pages."
+          fi

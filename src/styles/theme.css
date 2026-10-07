@@ -1,0 +1,19 @@
+/*
+ * THE SINGLE RETHEMEING FILE
+ * Every year, changing this file is all it takes to give a new edition its own
+ * visual identity. Components reference these variables (via Tailwind tokens or
+ * arbitrary values) — they never hardcode hex values or font names.
+ */
+:root {
+  /* Colors */
+  --color-bg:         #ffffff;
+  --color-text:       #212121;
+  --color-text-muted: #6b6b6b;
+  --color-accent:     #004073;   /* deep cobalt blue -> #1B3F9A */
+  --color-border:     #e0e0e0;
+  --color-surface:    #f3f7fb;   /* light, slightly bluish gray */
+
+  /* Typography */
+  --font-heading: 'Boska', Georgia, serif;
+  --font-body:    'IBM Plex Sans', system-ui, sans-serif;
+}
