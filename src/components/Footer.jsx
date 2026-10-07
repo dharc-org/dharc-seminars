@@ -5,19 +5,29 @@
 const logos = [
   {
     src: './logos/unibo_inv.png',
-    alt: 'University of Bologna',
+    alt: 'University of Bologna logo',
     href: 'https://www.unibo.it/en',
   },
   {
     src: './logos/boldh.svg',
-    alt: 'BoLDH',
+    alt: 'BoLDH logo',
     href: 'https://dharc-org.github.io/boldh/',
   },
   {
+    src: './logos/aiucd.svg',
+    alt: 'AIUCD logo',
+    href: 'https://www.aiucd.it/',
+  },
+  {
     src: './logos/dharc.svg',
-    alt: 'DH.arc',
+    alt: '/DH.arc logo',
     href: 'https://centri.unibo.it/dharc/en',
   },
+  {
+    src: './logos/cdch.svg',
+    alt: 'CDCH logo',
+    href: 'https://cdch.ku.dk/'
+  }
 ]
 
 export default function Footer() {
