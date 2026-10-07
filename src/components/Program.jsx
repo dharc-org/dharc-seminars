@@ -37,7 +37,7 @@ export default function Program() {
         <p className="mb-16 max-w-3xl font-body text-lg text-text-muted">
           The seminar unfolds over two days and follows three movements of learning, sharing
           and doing. On the first day <span className="italic text-accent font-medium">invited experts</span> open the conversation and <span className="italic text-accent font-medium">researchers from Bologna and Copenhagen</span> share concrete use cases from their work. The second day turns
-          those exchanges into practice with a <span className="italic text-accent font-medium">hackathon</span> devoted to building efficient and
+          those exchanges into practice with a <span className="italic text-accent font-medium">workshop</span> devoted to building efficient and
           creative AI pipelines.
         </p>
 

@@ -42,8 +42,7 @@ export default function Hero() {
           </p>
 
           <p className="max-w-md font-body text-lg leading-relaxed text-text-base">
-            An international seminar and a hackathon to answer the question: <span className="italic text-accent font-medium">how does
-            humanistic research change in the era of Artificial Intelligence?</span>
+            An international seminar and a workshop to answer the question: <span className="italic text-accent font-medium">how does humanistic research change in the era of Artificial Intelligence?</span>
           </p>
 
           {/* Registration CTA — free admission. Replace href with the registration URL. */}

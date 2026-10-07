@@ -29,9 +29,9 @@ const blocks = [
   },
   {
     eyebrow: 'Day 2 - <DOING>',
-    title: 'Hackathon · Efficient RAG: less is more',
+    title: 'Workshop · Efficient RAG: less is more',
     body: <>
-    The second day is a <span className="italic text-accent font-medium">hands-on hackathon</span> focused on <span className="italic text-accent font-medium">Retrieval-Augmented Generation</span>, with an
+    The second day is a <span className="italic text-accent font-medium">hands-on workshop</span> focused on <span className="italic text-accent font-medium">Retrieval-Augmented Generation</span>, with an
     emphasis on the efficiency of small models and the creativity of the proposed pipelines.
     Participants — who need a basic familiarity with Python and work in a preconfigured Jupyter
     environment — are challenged to optimise a claim-verification RAG pipeline, aiming to beat a
