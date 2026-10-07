@@ -13,16 +13,19 @@ const centres = [
 ]
 
 const members = [
-  { name: 'Prof. Francesca Tomasi', affiliation: 'University of Bologna · M-STO/08' },
-  { name: 'Prof. Giovanni Colavizza', affiliation: 'University of Bologna · INF/01' },
-  { name: 'Gianmarco Spinaci', affiliation: 'PhD candidate, University of Bologna · INF/01' },
-  { name: 'Erica Andreose', affiliation: 'PhD candidate, University of Bologna · M-STO/08' },
-  { name: 'Matteo Guenci', affiliation: 'PhD candidate, University of Bologna · INF/01' },
-  { name: 'Enrica Bruno', affiliation: 'PhD candidate, University of Bologna · M-STO/08' },
-  { name: 'Remo Grillo', affiliation: 'PhD candidate, University of Bologna · INF/01' },
-  { name: 'Tommaso Battisti', affiliation: 'PhD candidate, University of Bologna · M-STO/08' },
-  { name: 'Andrea Schimmenti', affiliation: 'Teaching tutor, University of Bologna · INF/01' },
+  { name: 'Prof. Francesca Tomasi', affiliation: 'University of Bologna - M-STO/08' },
+  { name: 'Prof. Giovanni Colavizza', affiliation: 'University of Bologna - INF/01' },
+  { name: 'Gianmarco Spinaci', affiliation: 'PhD candidate, University of Bologna - INF/01' },
+  { name: 'Erica Andreose', affiliation: 'PhD candidate, University of Bologna - M-STO/08' },
+  { name: 'Matteo Guenci', affiliation: 'PhD candidate, University of Bologna - INF/01' },
+  { name: 'Enrica Bruno', affiliation: 'PhD candidate, University of Bologna - M-STO/08' },
+  { name: 'Remo Grillo', affiliation: 'PhD candidate, University of Bologna - INF/01' },
+  { name: 'Tommaso Battisti', affiliation: 'PhD candidate, University of Bologna - M-STO/08' },
+  { name: 'Andrea Schimmenti', affiliation: 'Teaching tutor, University of Bologna - INF/01' },
   { name: 'Members of the CDCH, Copenhagen', affiliation: 'Partner research centre' },
+  { name: 'Tiago Filipe Nunes Ribeiro', affiliation: 'CDCH, University of Copenhagen' },
+  { name: 'Selda Eren', affiliation: 'CDCH, University of Copenhagen' },
+  { name: 'Yevhenii Osadchuk', affiliation: 'CDCH, University of Copenhagen' },
 ]
 
 export default function Committee() {
