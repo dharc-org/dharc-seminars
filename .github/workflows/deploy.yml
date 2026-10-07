@@ -82,32 +82,48 @@ jobs:
             git -C "$GHP" clean -fdx >/dev/null 2>&1 || true
           fi
 
-          # 5. Archive guard: refuse to overwrite an already-published edition.
-          if [ -d "$GHP/archive/$SLUG" ]; then
+          # Determine which edition is currently live at the root, if any.
+          CURRENT_SLUG=""
+          if [ -f "$GHP/.edition-meta.json" ]; then
+            CURRENT_SLUG="$(jq -r '.slug // empty' "$GHP/.edition-meta.json")"
+          fi
+
+          # 5. Archive guard: refuse to overwrite an already-published edition
+          #    unless it is the edition currently live at the root and we are
+          #    intentionally redeploying it.
+          if [ -d "$GHP/archive/$SLUG" ] && [ "$CURRENT_SLUG" != "$SLUG" ]; then
             echo "::error::Archive for '$SLUG' already exists. This edition has already been published. Update edition.js with the new edition's slug before deploying."
             exit 1
           fi
 
-          # 6. Root detection: if a previous edition is live at root, freeze it into
-          #    archive/<previous-slug>/ first. The previous slug comes from the
-          #    .edition-meta.json that the previous deploy wrote.
+          # 6. Root detection and redeploy logic.
           if [ -f "$GHP/index.html" ]; then
-            if [ ! -f "$GHP/.edition-meta.json" ]; then
+            if [ -f "$GHP/.edition-meta.json" ]; then
+              if [ "$CURRENT_SLUG" = "$SLUG" ]; then
+                echo "Redeploying the currently live edition '$SLUG'."
+                # Remove the old deployment at root while keeping .git and archive/.
+                find "$GHP" -mindepth 1 -maxdepth 1 \
+                  ! -name '.git' \
+                  ! -name 'archive' \
+                  -exec rm -rf -- {} +
+              else
+                PREV_SLUG="$CURRENT_SLUG"
+                if [ -z "$PREV_SLUG" ] || [ "$PREV_SLUG" = "null" ]; then
+                  echo "::error::.edition-meta.json at root is missing a valid slug."
+                  exit 1
+                fi
+                echo "Archiving previous edition '$PREV_SLUG' → archive/$PREV_SLUG/"
+                mkdir -p "$GHP/archive/$PREV_SLUG"
+                # Move everything at root EXCEPT the .git dir and the archive folder itself.
+                find "$GHP" -mindepth 1 -maxdepth 1 \
+                  ! -name '.git' \
+                  ! -name 'archive' \
+                  -exec mv {} "$GHP/archive/$PREV_SLUG/" \;
+              fi
+            else
               echo "::error::Found a site at the root of gh-pages but no .edition-meta.json — cannot determine which slug to archive it under."
               exit 1
             fi
-            PREV_SLUG="$(jq -r '.slug' "$GHP/.edition-meta.json")"
-            if [ -z "$PREV_SLUG" ] || [ "$PREV_SLUG" = "null" ]; then
-              echo "::error::.edition-meta.json at root is missing a valid slug."
-              exit 1
-            fi
-            echo "Archiving previous edition '$PREV_SLUG' → archive/$PREV_SLUG/"
-            mkdir -p "$GHP/archive/$PREV_SLUG"
-            # Move everything at root EXCEPT the .git dir and the archive folder itself.
-            find "$GHP" -mindepth 1 -maxdepth 1 \
-              ! -name '.git' \
-              ! -name 'archive' \
-              -exec mv {} "$GHP/archive/$PREV_SLUG/" \;
           else
             echo "No existing edition at root — this will be the first edition published here."
           fi
