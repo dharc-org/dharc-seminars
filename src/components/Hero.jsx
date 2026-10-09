@@ -7,7 +7,7 @@ export default function Hero() {
         src="./hero.webp"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full rounded-none object-cover object-right"
+        className="absolute inset-0 h-full min-h-[100lvh] w-full rounded-none object-cover object-right"
       />
 
       {/* Readability overlay — more opaque on the left where the text sits, then
