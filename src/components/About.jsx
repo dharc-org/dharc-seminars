@@ -5,10 +5,10 @@ const blocks = [
     eyebrow: 'Day 1 - Morning <LEARNING>',
     title: 'Expert Dialogues',
     body: <>
-    The “Learning” session opens with two <span className="italic text-accent font-medium">introductory talks</span> by Professors Francesca Tomasi and
+    The “Learning” session opens with an <span className="italic text-accent font-medium">introductory talk</span> by Professors Francesca Tomasi and
     Giovanni Colavizza, framing the intersection of AI and DH. <span className="italic text-accent font-medium">Three “Expert Dialogues”</span> follow with the
     invited experts. Each is built around a presentation of the guest’s work followed by an active
-    discussion led by a PhD student acting as discussant. The discussant works like a Chair, formulating critical questions and facilitating
+    discussion led by a PhD student acting as discussant. The discussant acts as a Chair, formulating critical questions and facilitating
     the exchange with the audience. The format stages a <span className="italic text-accent font-medium">structured dialogue</span> between an <span className="italic text-accent font-medium">established
     expert</span> and an <span className="italic text-accent font-medium">early-career researcher</span>.
     </>,
@@ -20,25 +20,18 @@ const blocks = [
     The second session, “Sharing”, is dedicated to <span className="italic text-accent font-medium">real use cases</span> from the two centres. It
     is organised in blocks: in each, a researcher from the partner centre and a /DH.arc PhD student
     present their respective projects, comparing tools, workflows, and open problems, followed by a
-    <span className="italic text-accent font-medium"> round of critical feedback</span>. The aim is operational — to surface what is being done, how, and
+    <span className="italic text-accent font-medium"> round of critical feedback</span>. The aim is to surface what is being done, how, and
     where there is <span className="italic text-accent font-medium">room for collaboration</span>, while preparing participants for a moment of critical
-    feedback on the research. The session closes with a <span className="italic text-accent font-medium">roundtable</span> in which the speakers identify
-    affinities between projects and outline possible directions for joint work in the months that
-    follow.
+    feedback on the research.
     </>,
   },
   {
     eyebrow: 'Day 2 - <DOING>',
-    title: 'Workshop · Efficient RAG: less is more',
+    title: 'Workshop - Forge Your Personal AI Stack',
     body: <>
-    The second day is a <span className="italic text-accent font-medium">hands-on workshop</span> focused on <span className="italic text-accent font-medium">Retrieval-Augmented Generation</span>, with an
-    emphasis on the efficiency of small models and the creativity of the proposed pipelines.
-    Participants — who need a basic familiarity with Python and work in a preconfigured Jupyter
-    environment — are challenged to optimise a claim-verification RAG pipeline, aiming to beat a
-    baseline score using smaller, less resource-intensive language models (SLMs). Solutions are
-    judged on efficiency, creativity, reproducibility, and collaboration. Teams of two to four
-    submit their code and a short report; each project is then run on the full dataset by the
-    organisers, and scores are revealed on screen to announce the winners.
+      This <span className="italic text-accent font-medium">hands-on workshop</span> explores how to design, deploy, and evaluate an advanced <span className="italic text-accent font-medium">Retrieval-Augmented Generation pipeline</span> using self-hosted language models. Participants will move beyond the basic RAG workflow to examine how evidence is retrieved, ranked, attributed, and used in generation, as well as how each component can be evaluated independently.
+      By working directly with models, hardware constraints, and infrastructure choices, participants will gain a practical understanding of <span className="italic text-accent font-medium">self-hosted AI</span> and its potential value for <span className="italic text-accent font-medium">cultural heritage institutions</span>, including greater control over data, systems, and costs. 
+      The workshop will conclude with a concrete case study of Relay, presented by the CDCH team, offering insight into its architecture, operation, and relevance to Digital Humanities research.
     </>,
   },
 ]
@@ -56,7 +49,7 @@ export default function About() {
             intelligence reshape the questions, sources, and practices of the humanities, across two days that move from expert
             dialogues to the discussion of use cases and hands-on workshops.
           </p>
-          <p className="max-w-3xl font-body text-lg leading-relaxed text-text-muted">To get in touch, please <span className="italic text-accent font-medium">contact</span> us at <a href="aidhdialogue2026@gmail.com">aidhdialogue2026@gmail.com</a>.</p>
+          <p className="max-w-3xl font-body text-lg leading-relaxed text-text-muted">To get in touch, please <span className="italic text-accent font-medium">contact</span> us at <a className="font-medium" href="mailto:aidhdialogue2026@gmail.com">aidhdialogue2026@gmail.com</a>.</p>
         </div>
         <div className="space-y-14">
           {blocks.map((block) => (

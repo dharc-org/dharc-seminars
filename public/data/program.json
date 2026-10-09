@@ -124,8 +124,8 @@
               "id": "sl-3-1",
               "time": "9:00 - 13:00",
               "type": "keynote",
-              "speaker": "Efficient RAG: less is more",
-              "title": "Retrieval-Augmented Generation with a focus on the efficiency of small models and the creativity of the proposed pipelines"
+              "speaker": "Forge Your Personal AI Stack",
+              "title": "A Laboratory for Advanced RAG with Self-Hosted LLMs"
             }
           ]
         }
