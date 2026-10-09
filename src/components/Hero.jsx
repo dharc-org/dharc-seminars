@@ -29,11 +29,10 @@ export default function Hero() {
             to practice
           </h1>
 
-          <p className="mb-8 max-w-xl font-body text-xl leading-snug md:text-2xl font-medium">
+          <p className="mb-4 max-w-xl md:max-w-lg font-body text-xl leading-snug md:text-2xl font-medium">
             A Dialogue Between{' '}
             <span className="italic text-accent">Artificial Intelligence</span>
-            <br />
-            and{' '}
+            {' '}and{' '}
             <span className="italic text-accent">Digital Humanities</span>
           </p>
 
@@ -41,12 +40,12 @@ export default function Hero() {
             5–6 November 2026 — Aula Affreschi, via Zamboni 34, Bologna
           </p>
 
-          <p className="max-w-md font-body text-lg leading-relaxed text-text-base">
+{/*           <p className="max-w-md font-body text-lg leading-relaxed text-text-base">
             An international seminar and a workshop to answer the question: <span className="italic text-accent font-medium">how does humanistic research change in the era of Artificial Intelligence?</span>
-          </p>
+          </p> */}
 
           {/* Registration CTA */}
-          <div className="mt-8 flex flex-col items-start gap-3">
+          <div className="mt-12 flex flex-col items-start gap-3">
             <span className="font-body text-sm text-text-muted">
               Free event. Previous registration required
             </span>
