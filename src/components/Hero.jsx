@@ -1,7 +1,7 @@
 // Hero content is hardcoded by design — only the program schedule comes from JSON.
 export default function Hero() {
   return (
-    <section id="hero" className="relative h-[90vh] overflow-hidden">
+    <section id="hero" className="relative overflow-hidden">
       {/* Full-bleed background image */}
       <img
         src="./hero.webp"
@@ -20,7 +20,7 @@ export default function Hero() {
       <div aria-hidden="true" className="absolute inset-0 bg-[var(--color-bg)]/60 md:hidden" />
 
       {/* Content — 10% horizontal margins, vertically centered, left-aligned */}
-      <div className="relative flex h-full flex-col justify-center px-[10%] py-24 md:py-16">
+      <div className="relative flex min-h-[100svh] flex-col justify-center px-[10%] py-24 md:py-16 lg:min-h-[90svh]">
         <div className="max-w-xl">
 
           <h1 className="mb-6 font-heading text-6xl font-semibold leading-[1.04] md:text-8xl italic">
