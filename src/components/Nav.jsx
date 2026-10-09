@@ -51,10 +51,12 @@ export default function Nav() {
           className="font-body text-xl text-text-base transition-colors hover:text-accent font-medium"
         >
           {currentEdition.seriesName}
-        </a> <p className="text-accent">[II edition]</p>
+        </a>
+        
+        <p className="hidden md:block text-accent">[II edition]</p>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           {ANCHORS.map((item) => (
             <a
               key={item.href}
@@ -108,7 +110,7 @@ export default function Nav() {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
-          className="flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-8 w-8 flex-col items-center justify-center gap-1.5 lg:hidden"
         >
           <span
             className={`block h-px w-6 bg-text-base transition-transform ${
@@ -126,7 +128,7 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-border bg-white md:hidden">
+        <div className="border-t border-border bg-white lg:hidden">
           <ul className="px-[10%] py-4">
             {ANCHORS.map((item) => (
               <li key={item.href}>
