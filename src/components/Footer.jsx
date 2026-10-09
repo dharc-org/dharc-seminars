@@ -18,7 +18,7 @@ const logos = [
     alt: 'AIUCD logo',
     href: 'https://www.aiucd.it/',
   },
-  {
+/*   {
     src: './logos/dharc.svg',
     alt: '/DH.arc logo',
     href: 'https://centri.unibo.it/dharc/en',
@@ -27,7 +27,7 @@ const logos = [
     src: './logos/cdch.svg',
     alt: 'CDCH logo',
     href: 'https://cdch.ku.dk/'
-  }
+  } */
 ]
 
 export default function Footer() {
