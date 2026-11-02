@@ -19,3 +19,6 @@ pnpm-debug.log*
 .env
 .env.local
 .env.*.local
+
+# workshop: presenter notes stay private
+workshop_06_11_26/notes.js
