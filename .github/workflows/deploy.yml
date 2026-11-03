@@ -112,6 +112,9 @@ jobs:
           mkdir -p "$GHP/$SLUG"
           cp -R "$GITHUB_WORKSPACE/dist/." "$GHP/$SLUG/"
 
+          # Workshop setup guide: a single self-contained page, published at /<slug>/workshop/.
+          mkdir -p "$GHP/$SLUG/workshop" && cp "$GITHUB_WORKSPACE/workshop_06_11_26/setup.html" "$GHP/$SLUG/workshop/index.html"
+
           # Inject the absolute edition URL where the placeholder appears
           # (canonical, Open Graph, JSON-LD, sitemap, robots).
           grep -rlZ --exclude-dir=assets '__SITE_URL__' "$GHP/$SLUG" 2>/dev/null \
