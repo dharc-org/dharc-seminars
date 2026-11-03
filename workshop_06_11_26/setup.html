@@ -185,9 +185,7 @@ const QUESTIONS = [
     ['amd','AMD Radeon, dedicated card'],
     ['int','Only integrated graphics','Intel UHD / Iris, AMD Radeon integrated'],
     ['dk',DK]]},
-  {id:'disk', q:'Do you have at least 10 GB of free disk space?', opts:[['y','Yes'],['n','No'],['dk',DK]]},
-  {id:'install', q:'Can you install apps on this laptop?', hint:'Laptops managed by a university or an employer sometimes block new software.', opts:[
-    ['y','Yes'],['n','No, it is locked'],['dk',DK]]}
+  {id:'disk', q:'Do you have at least 10 GB of free disk space?', opts:[['y','Yes'],['n','No']]}
 ];
 
 /* ---------- state in the URL hash ---------- */
@@ -208,10 +206,7 @@ const STOP = {
   ramlt8:{why:"With less than 8 GB of memory, a language model won't fit next to everything else that is running."},
   ramdk:{why:"If you're not sure, Colab is the safe choice. You can come back once you have checked."},
   intel8:{why:"An Intel Mac with 8 GB of memory would be very slow with a language model."},
-  diskn:{why:"The local setup needs about 10 GB (the model alone is 5.3 GB). Free up some space and come back, or simply use Colab."},
-  diskdk:{why:"If you're not sure, Colab is the safe choice: it needs no space on your laptop."},
-  installn:{why:"The local setup needs Python and Ollama installed. Colab needs nothing installed."},
-  installdk:{why:"If you're not sure, Colab is the safe choice: it needs nothing installed."}
+  diskn:{why:"The local setup needs about 10 GB (the model alone is 5.3 GB). Free up some space and come back, or simply use Colab."}
 };
 
 function visible(){ return QUESTIONS.filter(q=>!q.when || q.when(ans)); }
@@ -230,8 +225,7 @@ function decide(){
       if(v==='dk') return {shown, outcome:{key:'D', stop:'ramdk'}};
       if(ans.os==='mac' && ans.chip==='intel' && v==='8') return {shown, outcome:{key:'D', stop:'intel8'}};
     }
-    if(q.id==='disk' && v!=='y') return {shown, outcome:{key:'D', stop: v==='n'?'diskn':'diskdk'}};
-    if(q.id==='install' && v!=='y') return {shown, outcome:{key:'D', stop: v==='n'?'installn':'installdk'}};
+    if(q.id==='disk' && v==='n') return {shown, outcome:{key:'D', stop:'diskn'}};
   }
   const big = ans.ram==='16' || ans.ram==='32';
   if(ans.os==='mac'){
@@ -262,14 +256,20 @@ function localSteps(os, modelKey, extraNote){
   const m = MODELS[modelKey];
   const win = os==='win';
   const s = [];
-  s.push(`<li><span class="st">Install Python 3.10 or newer</span>
-    <p>${ext('https://www.python.org/downloads/','Download Python','btn')}</p>
-    ${win ? '<p>During installation, <b>tick “Add python.exe to PATH”</b> on the first screen.</p>'
-     : os==='mac' ? '<p>Use the installer from python.org (or <code>brew install python</code> if you use Homebrew): the Python that comes with macOS may be too old.</p>'
-     : '<p>Most Linux distributions already have it: check with <code>python3 --version</code>. On Debian/Ubuntu you may also need <code>sudo apt install python3-venv</code>.</p>'}
+  const pyv = win ? 'python --version' : 'python3 --version';
+  s.push(`<li><span class="st">Check that you have Python 3.10 or newer</span>
+    <p>Open ${TERM[os]} and run:</p>${code(pyv)}
+    <p>If it prints <b>Python 3.10</b> or a higher number, you're set: go to the next step.</p>
+    <details class="alt"><summary>No Python, or an older version?</summary>
+      <p>${ext('https://www.python.org/downloads/','Download Python','btn')}</p>
+      ${win ? '<p>During installation, <b>tick “Add python.exe to PATH”</b> on the first screen. Then close and reopen PowerShell, and check again.</p>'
+       : os==='mac' ? '<p>Use the installer from python.org (or <code>brew install python</code> if you use Homebrew), then open a new Terminal window and check again.</p>'
+       : '<p>Install it with your distribution\'s package manager (e.g. <code>sudo apt install python3 python3-venv</code> on Debian/Ubuntu).</p>'}
+    </details>
+    ${os==='linux' ? '<p class="small">On Debian/Ubuntu the next step may also need <code>sudo apt install python3-venv</code>.</p>' : ''}
   </li>`);
   s.push(`<li><span class="st">Make a folder and download the notebook into it</span>
-    <p>Open ${TERM[os]} and run:</p>
+    <p>In the same terminal, run:</p>
     ${win ? code(`mkdir ~\\rag-workshop\ncd ~\\rag-workshop\ncurl.exe -L -o rag_workshop_local.ipynb ${RAW}rag_workshop_local.ipynb`)
           : code(`mkdir -p ~/rag-workshop\ncd ~/rag-workshop\ncurl -L -o rag_workshop_local.ipynb ${RAW}rag_workshop_local.ipynb`)}
     <p class="small">Or download it from ${ext(REPO+'rag_workshop_local.ipynb','GitHub')} (button “Download raw file”) and move it into the folder. Make sure the name ends in <code>.ipynb</code>, not <code>.txt</code>.</p>
