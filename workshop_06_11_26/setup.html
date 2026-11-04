@@ -41,6 +41,8 @@ code{background:var(--code);padding:1px 5px;border-radius:3px;white-space:nowrap
 
 /* header */
 .js-type h1:not(.typed),.js-type .sub:not(.typed){visibility:hidden}
+.js-type .layout{opacity:0;transform:translateY(14px);visibility:hidden;transition:opacity .7s ease,transform .7s ease,visibility 0s .7s}
+.js-type .layout.shown{opacity:1;transform:none;visibility:visible;transition:opacity .7s ease,transform .7s ease,visibility 0s}
 .ch{opacity:0}
 .ch.on{opacity:1}
 .ch.cur{position:relative}
@@ -561,7 +563,7 @@ readHash(); draw(false);
 /* Title and subtitle appear as if typed. Characters are laid out from the start (no reflow); only their opacity changes. */
 (function(){
   if(!document.documentElement.classList.contains('js-type')) return;
-  const items=[[document.querySelector('header h1'),70,60],[document.querySelector('header .sub'),38,30]];
+  const items=[[document.querySelector('header h1'),38,30],[document.querySelector('header .sub'),18,14]];
   const lists=items.map(([el])=>{
     const text=el.textContent; el.setAttribute('aria-label',text); el.textContent='';
     const spans=[...text].map(c=>{const s=document.createElement('span'); s.className='ch'; s.textContent=c; s.setAttribute('aria-hidden','true'); el.appendChild(s); return s;});
@@ -571,16 +573,18 @@ readHash(); draw(false);
   const caret=s=>{ if(prev) prev.classList.remove('cur'); s.classList.add('cur'); prev=s; };
   const wait=ms=>new Promise(r=>setTimeout(r,ms));
   (async()=>{
-    await wait(700);
+    await wait(350);
     for(let k=0;k<items.length;k++){
       const [,base,jit]=items[k];
       for(const s of lists[k]){
         s.classList.add('on'); caret(s);
         await wait(base+Math.random()*jit+(s.textContent===' '?base*.8:0));
       }
-      await wait(k===0?550:0);
+      await wait(k===0?300:0);
     }
-    await wait(3200); if(prev) prev.classList.remove('cur');
+    // the questionnaire appears once the text is complete
+    await wait(250); document.querySelector('.layout').classList.add('shown');
+    await wait(2400); if(prev) prev.classList.remove('cur');
   })();
 })();
 </script>
