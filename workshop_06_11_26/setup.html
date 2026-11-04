@@ -39,12 +39,20 @@ code,.mono{font-family:var(--mono);font-size:.9em}
 code{background:var(--code);padding:1px 5px;border-radius:3px;white-space:nowrap}
 
 /* header */
+header{position:relative}
+header>*:not(.mark){position:relative;z-index:1}
+.mark{position:absolute;z-index:0;right:-8px;top:-28px;width:min(36%,470px);height:auto;pointer-events:none}
+@media (max-width:1180px){.mark{width:min(52%,420px);opacity:.22;top:-10px}}
+@media (max-width:620px){.mark{width:78%;right:-24px;top:0;opacity:.16}}
 .kicker{font-size:17px;color:var(--muted);margin:0 0 12px}
 h1{font-family:var(--cond);font-weight:700;font-size:clamp(40px,8vw,64px);line-height:1.02;letter-spacing:-.02em;color:var(--link);margin:0;
    text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:10px}
 .sub{font-family:var(--cond);font-weight:600;font-size:clamp(22px,4vw,28px);line-height:1.2;margin:22px 0 0}
 .strip{display:block;width:100%;max-width:760px;height:auto;margin:28px 0 6px}
 .strip text{font-family:var(--cond);font-weight:600}
+.mk-core{animation:breathe 6s ease-in-out infinite;transform-origin:300px 175px}
+@keyframes breathe{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.mk-core{animation:none}}
 .note{color:var(--muted);font-size:15px;margin:0;max-width:760px}
 
 /* boxes */
@@ -146,6 +154,21 @@ footer{margin-top:56px;color:var(--muted);font-size:14px;border-top:1px solid va
 <div class="wrap">
 
 <header>
+  <svg class="mark" id="mark" viewBox="0 0 460 380" aria-hidden="true">
+    <defs>
+      <radialGradient id="mk-fill" gradientUnits="userSpaceOnUse" cx="300" cy="175" r="330">
+        <stop offset=".12" stop-color="#005DAC"/><stop offset=".85" stop-color="#052966"/>
+      </radialGradient>
+      <radialGradient id="mk-core"><stop offset="0" stop-color="#03153F" stop-opacity=".95"/><stop offset="1" stop-color="#03153F" stop-opacity="0"/></radialGradient>
+      <radialGradient id="mk-spark"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#CFE0FF" stop-opacity=".8"/><stop offset="1" stop-color="#CFE0FF" stop-opacity="0"/></radialGradient>
+      <mask id="mk-grow" maskUnits="userSpaceOnUse" x="0" y="0" width="460" height="380"><circle id="mk-r" cx="300" cy="175" r="0" fill="#fff"/></mask>
+    </defs>
+    <g mask="url(#mk-grow)">
+      <g fill="url(#mk-fill)"><path id="mk-a"/><path id="mk-b"/><path id="mk-c"/><circle cx="300" cy="175" r="21"/></g>
+      <circle class="mk-core" cx="300" cy="175" r="20" fill="url(#mk-core)"/>
+      <circle id="mk-s" r="9" fill="url(#mk-spark)" opacity="0"/>
+    </g>
+  </svg>
   <p class="kicker">Day 2 · Workshop · 6 November</p>
   <h1>Forge Your Personal AI Stack</h1>
   <p class="sub">Get ready: answer a few questions, get your checklist.</p>
@@ -474,6 +497,57 @@ function selectPre(btn){
 
 window.addEventListener('hashchange', ()=>{ readHash(); draw(false); });
 readHash(); draw(false);
+})();
+</script>
+<script>
+/* Title mark: the seminar logo (three organic branches meeting in a node), drawn live and moving gently. */
+(function(){
+  const svg = document.getElementById('mark'); if(!svg) return;
+  const N = [300,175];
+  const BR = [ // centreline (cubic from the node outwards), width at node -> tip, seed
+    {el:'mk-a', p:[N,[220,205],[120,118],[12,150]],  w:[30,1.5], s:0.7},
+    {el:'mk-b', p:[N,[352,118],[392,70],[448,16]],   w:[25,1.5], s:2.1},
+    {el:'mk-c', p:[N,[292,250],[348,312],[318,368]], w:[22,1.5], s:3.9}
+  ];
+  const bez = (P,t)=>{const u=1-t; return [0,1].map(i=>u*u*u*P[0][i]+3*u*u*t*P[1][i]+3*u*t*t*P[2][i]+t*t*t*P[3][i]);};
+  const der = (P,t)=>{const u=1-t; return [0,1].map(i=>3*u*u*(P[1][i]-P[0][i])+6*u*t*(P[2][i]-P[1][i])+3*t*t*(P[3][i]-P[2][i]));};
+  const f = n=>n.toFixed(1);
+  function centre(b,t,ph){
+    const p=bez(b.p,t), d=der(b.p,t), L=Math.hypot(d[0],d[1])||1, n=[-d[1]/L,d[0]/L];
+    const o=4*t*Math.sin(2*Math.PI*1.6*t+ph+b.s);
+    return {c:[p[0]+n[0]*o,p[1]+n[1]*o], n};
+  }
+  function shape(b,ph){
+    const K=64, L=[], R=[];
+    for(let i=0;i<=K;i++){
+      const t=i/K, {c,n}=centre(b,t,ph);
+      const w=(b.w[0]+(b.w[1]-b.w[0])*Math.pow(t,1.15))*(t>.85?1-(t-.85)/.15*.6:1)*(1+.2*Math.sin(2*Math.PI*2.2*t+ph*.8+b.s)+.1*Math.sin(2*Math.PI*5.3*t-ph*1.3+2*b.s))/2;
+      L.push([c[0]+n[0]*w,c[1]+n[1]*w]); R.push([c[0]-n[0]*w,c[1]-n[1]*w]);
+    }
+    const end=R[K], r=Math.max(1,Math.hypot(L[K][0]-end[0],L[K][1]-end[1])/2);
+    return 'M'+L.map(q=>f(q[0])+' '+f(q[1])).join('L')+`A${f(r)} ${f(r)} 0 0 1 ${f(end[0])} ${f(end[1])}`+'L'+R.reverse().slice(1).map(q=>f(q[0])+' '+f(q[1])).join('L')+'Z';
+  }
+  const els=BR.map(b=>document.getElementById(b.el)), grow=document.getElementById('mk-r'), spark=document.getElementById('mk-s');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(ph){ BR.forEach((b,i)=>els[i].setAttribute('d',shape(b,ph))); }
+  if(still){ draw(0); grow.setAttribute('r',600); return; }
+  const t0=performance.now(), GROW=1800, PERIOD=14000, EVERY=7000, TRAVEL=2600;
+  let last=0;
+  function frame(now){
+    requestAnimationFrame(frame);
+    if(document.hidden || now-last<33) return; last=now;
+    const el=now-t0, g=Math.min(1,el/GROW);
+    grow.setAttribute('r', f(600*(1-Math.pow(1-g,3))));
+    draw(2*Math.PI*el/PERIOD);
+    // a spark travels along one branch into the node, like a question entering the pipeline
+    const k=(el-GROW)%EVERY, which=Math.floor((el-GROW)/EVERY)%3;
+    if(el>GROW && k<TRAVEL){
+      const u=k/TRAVEL, t=1-u*u*(3-2*u), {c}=centre(BR[which],t,2*Math.PI*el/PERIOD);
+      spark.setAttribute('cx',f(c[0])); spark.setAttribute('cy',f(c[1]));
+      spark.setAttribute('opacity', f(Math.sin(Math.PI*u)*.9));
+    } else spark.setAttribute('opacity','0');
+  }
+  draw(0); requestAnimationFrame(frame);
 })();
 </script>
 </body>
