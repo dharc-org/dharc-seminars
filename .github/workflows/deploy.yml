@@ -114,6 +114,8 @@ jobs:
 
           # Workshop setup guide: a single self-contained page, published at /<slug>/workshop/.
           mkdir -p "$GHP/$SLUG/workshop" && cp "$GITHUB_WORKSPACE/workshop_06_11_26/setup.html" "$GHP/$SLUG/workshop/index.html"
+          # Workshop slides (presenter notes, notes.js, are gitignored and stay private).
+          mkdir -p "$GHP/$SLUG/workshop/slides" && cp "$GITHUB_WORKSPACE/workshop_06_11_26/index.html" "$GHP/$SLUG/workshop/slides/index.html"
 
           # Inject the absolute edition URL where the placeholder appears
           # (canonical, Open Graph, JSON-LD, sitemap, robots).
