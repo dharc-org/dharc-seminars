@@ -134,6 +134,7 @@ function Slot({ slot }) {
                 <span className="mt-0.5 block font-body text-lg italic leading-snug text-text-muted">
                   {slot.title}
                 </span>
+                {slot.dialog && <DialogLine dialog={slot.dialog} />}
               </span>
               <span
                 aria-hidden="true"
@@ -163,6 +164,23 @@ function Slot({ slot }) {
                     <p className="font-body text-sm leading-relaxed text-text-muted">
                       {slot.bio}
                     </p>
+                  </div>
+                )}
+                {slot.dialog?.abstract && (
+                  <div className="border-t border-border pt-4">
+                    <p className="mb-1 font-body text-xs font-bold uppercase tracking-widest text-accent">
+                      In dialog · {slot.dialog.speaker}
+                    </p>
+                    {slot.dialog.title && (
+                      <p className="mb-2 font-body text-sm font-medium italic leading-snug text-text-base">
+                        {slot.dialog.title}
+                      </p>
+                    )}
+                    {slot.dialog.abstract.split(/\n\s*\n/).map((para, i) => (
+                      <p key={i} className="mt-2 font-body text-sm leading-relaxed text-text-muted first:mt-0">
+                        {para}
+                      </p>
+                    ))}
                   </div>
                 )}
               </div>
@@ -215,5 +233,22 @@ function Slot({ slot }) {
         )}
       </dd>
     </div>
+  )
+}
+
+// Second speaker of an afternoon slot: a Bologna researcher who presents a
+// project in dialogue with the guest. Title and abstract are optional.
+function DialogLine({ dialog }) {
+  return (
+    <span className="mt-2 block font-body text-base leading-snug text-text-muted">
+      <span className="text-xs font-bold uppercase tracking-widest text-accent">in dialog with</span>{' '}
+      <span className="font-medium text-text-base">{dialog.speaker}</span>
+      {dialog.title && (
+        <>
+          {' · '}
+          <span className="italic">{dialog.title}</span>
+        </>
+      )}
+    </span>
   )
 }
