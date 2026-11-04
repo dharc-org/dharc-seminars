@@ -6,6 +6,7 @@
 <title>Get ready · Forge Your Personal AI Stack</title>
 <meta name="description" content="Answer a few questions and get your checklist for the workshop Forge Your Personal AI Stack: local setup with Ollama, or Google Colab.">
 <meta name="robots" content="noindex">
+<script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-type')}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔎</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,6 +40,12 @@ code,.mono{font-family:var(--mono);font-size:.9em}
 code{background:var(--code);padding:1px 5px;border-radius:3px;white-space:nowrap}
 
 /* header */
+.js-type h1:not(.typed),.js-type .sub:not(.typed){visibility:hidden}
+.ch{opacity:0}
+.ch.on{opacity:1}
+.ch.cur{position:relative}
+.ch.cur::after{content:"";position:absolute;right:-.12em;top:.12em;bottom:.08em;width:.07em;min-width:2px;background:currentColor;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
 header{position:relative}
 header>*:not(.mark){position:relative;z-index:1}
 .mark{position:absolute;z-index:0;right:-8px;top:-28px;width:min(36%,470px);height:auto;pointer-events:none}
@@ -50,7 +57,7 @@ h1{font-family:var(--cond);font-weight:700;font-size:clamp(40px,8vw,64px);line-h
 .sub{font-family:var(--cond);font-weight:600;font-size:clamp(22px,4vw,28px);line-height:1.2;margin:22px 0 0}
 .strip{display:block;width:100%;max-width:760px;height:auto;margin:28px 0 6px}
 .strip text{font-family:var(--cond);font-weight:600}
-.mk-core{animation:breathe 6s ease-in-out infinite;transform-origin:300px 175px}
+.mk-core{animation:breathe 10s ease-in-out infinite;transform-origin:300px 175px}
 @keyframes breathe{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
 @media (prefers-reduced-motion:reduce){.mk-core{animation:none}}
 .note{color:var(--muted);font-size:15px;margin:0;max-width:760px}
@@ -531,7 +538,7 @@ readHash(); draw(false);
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function draw(ph){ BR.forEach((b,i)=>els[i].setAttribute('d',shape(b,ph))); }
   if(still){ draw(0); grow.setAttribute('r',600); return; }
-  const t0=performance.now(), GROW=1800, PERIOD=14000, EVERY=7000, TRAVEL=2600;
+  const t0=performance.now(), GROW=4200, PERIOD=28000, EVERY=12000, TRAVEL=4800;
   let last=0;
   function frame(now){
     requestAnimationFrame(frame);
@@ -548,6 +555,33 @@ readHash(); draw(false);
     } else spark.setAttribute('opacity','0');
   }
   draw(0); requestAnimationFrame(frame);
+})();
+</script>
+<script>
+/* Title and subtitle appear as if typed. Characters are laid out from the start (no reflow); only their opacity changes. */
+(function(){
+  if(!document.documentElement.classList.contains('js-type')) return;
+  const items=[[document.querySelector('header h1'),70,60],[document.querySelector('header .sub'),38,30]];
+  const lists=items.map(([el])=>{
+    const text=el.textContent; el.setAttribute('aria-label',text); el.textContent='';
+    const spans=[...text].map(c=>{const s=document.createElement('span'); s.className='ch'; s.textContent=c; s.setAttribute('aria-hidden','true'); el.appendChild(s); return s;});
+    el.classList.add('typed'); return spans;
+  });
+  let prev=null;
+  const caret=s=>{ if(prev) prev.classList.remove('cur'); s.classList.add('cur'); prev=s; };
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  (async()=>{
+    await wait(700);
+    for(let k=0;k<items.length;k++){
+      const [,base,jit]=items[k];
+      for(const s of lists[k]){
+        s.classList.add('on'); caret(s);
+        await wait(base+Math.random()*jit+(s.textContent===' '?base*.8:0));
+      }
+      await wait(k===0?550:0);
+    }
+    await wait(3200); if(prev) prev.classList.remove('cur');
+  })();
 })();
 </script>
 </body>
