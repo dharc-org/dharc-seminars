@@ -23,7 +23,16 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
-.wrap{max-width:780px;margin:0 auto;padding-inline:20px;padding-block:48px 80px}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:clamp(16px,4vw,56px);padding-block:48px 80px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;grid-template-areas:"main side";gap:48px;align-items:start;margin-top:8px}
+.main{grid-area:main;min-width:0}
+.side{grid-area:side;position:sticky;top:24px}
+.side .box{margin-top:48px}
+@media (max-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"side" "main";gap:0}
+  .side{position:static}
+  .side .box{margin-top:24px}
+}
 a{color:var(--link);text-underline-offset:3px}
 a:visited{color:var(--visited)}
 code,.mono{font-family:var(--mono);font-size:.9em}
@@ -34,9 +43,9 @@ code{background:var(--code);padding:1px 5px;border-radius:3px;white-space:nowrap
 h1{font-family:var(--cond);font-weight:700;font-size:clamp(40px,8vw,64px);line-height:1.02;letter-spacing:-.02em;color:var(--link);margin:0;
    text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:10px}
 .sub{font-family:var(--cond);font-weight:600;font-size:clamp(22px,4vw,28px);line-height:1.2;margin:22px 0 0}
-.strip{display:block;width:100%;max-width:640px;height:auto;margin:28px 0 6px}
+.strip{display:block;width:100%;max-width:760px;height:auto;margin:28px 0 6px}
 .strip text{font-family:var(--cond);font-weight:600}
-.note{color:var(--muted);font-size:15px;margin:0}
+.note{color:var(--muted);font-size:15px;margin:0;max-width:760px}
 
 /* boxes */
 .box{background:var(--panel);border:1px solid var(--rule);padding:16px 20px;margin:24px 0}
@@ -50,8 +59,14 @@ h2{font-family:var(--cond);font-weight:700;font-size:30px;margin:48px 0 4px;padd
 /* wizard */
 .q{background:var(--panel);border:1px solid var(--rule);margin:16px 0;padding:18px 20px 20px}
 .q.new,.result.new{animation:in .25s ease}
+.q.current{border-color:var(--link);animation:glow 2.4s ease-in-out infinite}
+.q.current.new{animation:in .25s ease,glow 2.4s ease-in-out .25s infinite}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 0 3px rgba(26,79,214,.15),0 0 18px 3px rgba(26,79,214,.20)}
+  50%{box-shadow:0 0 0 5px rgba(26,79,214,.24),0 0 36px 8px rgba(26,79,214,.36)}
+}
 @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.q.new,.result.new{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.q.new,.result.new,.q.current,.q.current.new{animation:none}.q.current{box-shadow:0 0 0 4px rgba(26,79,214,.18),0 0 24px 4px rgba(26,79,214,.25)}html{scroll-behavior:auto}}
 .q legend{display:flex;gap:12px;align-items:baseline;font-weight:600;font-size:19px;padding:0;margin-bottom:4px}
 .q fieldset{border:0;margin:0;padding:0;min-width:0}
 .qn{font-family:var(--mono);font-size:14px;color:var(--muted);font-weight:500}
@@ -133,10 +148,8 @@ footer{margin-top:56px;color:var(--muted);font-size:14px;border-top:1px solid va
   <p class="note">In the workshop you build this pipeline in a notebook. Only the <b>ANSWER</b> step needs a language model, from Hour 2 on. That's the part that depends on your laptop.</p>
 </header>
 
-<div class="box info">
-  <h3>New to RAG?</h3>
-  <p>For a friendly introduction to what Retrieval-Augmented Generation means, look at the Day 1 slides: <a href="https://remogrillo.github.io/ml_2026/generative-models-rag-day1.html#1" target="_blank" rel="noopener">Generative models &amp; RAG, Day 1</a>.</p>
-</div>
+<div class="layout">
+<main class="main">
 
 <h2>Your laptop</h2>
 <p class="small">Takes about a minute. Your answers stay in this page. Nothing is sent anywhere.</p>
@@ -153,6 +166,17 @@ footer{margin-top:56px;color:var(--muted);font-size:14px;border-top:1px solid va
 <div class="box warn">
   <h3>Why Ollama, and not LM Studio?</h3>
   <p>The notebook talks to <b>Ollama</b> (at <code>http://localhost:11434</code>) and only sees the models installed <i>in Ollama</i>. Models downloaded with LM Studio, or as files from Hugging Face, are invisible to it. If you already use LM Studio, keep it, but install Ollama too for the workshop.</p>
+</div>
+
+</main>
+
+<aside class="side">
+  <div class="box info">
+    <h3>New to RAG?</h3>
+    <p>Here's a friendly introduction to the basic concepts:</p>
+    <p><a class="btn" href="https://remogrillo.github.io/ml_2026/generative-models-rag-day1.html#1" target="_blank" rel="noopener">Generative models &amp; RAG, Day 1</a></p>
+  </div>
+</aside>
 </div>
 
 <footer>/DH.arc seminars · Workshop "Forge Your Personal AI Stack" · notebooks and slides on <a href="https://github.com/dharc-org/dharc-seminars/tree/main/workshop_06_11_26" target="_blank" rel="noopener">GitHub</a></footer>
@@ -396,7 +420,7 @@ const res = document.getElementById('result');
 
 function draw(scrollTo){
   const {shown, outcome} = decide();
-  wiz.innerHTML = shown.map((q,i)=>`<div class="q${scrollTo && !outcome && i===shown.length-1 ? ' new' : ''}" id="q-${q.id}"><fieldset>
+  wiz.innerHTML = shown.map((q,i)=>`<div class="q${!outcome && i===shown.length-1 ? ' current' : ''}${scrollTo && !outcome && i===shown.length-1 ? ' new' : ''}" id="q-${q.id}"><fieldset>
       <legend><span class="qn">${String(i+1).padStart(2,'0')}</span><span>${q.q}</span></legend>
       ${q.hint?`<p class="hint">${q.hint}</p>`:''}
       <div class="opts">${q.opts.map(([v,l,sm])=>`<button type="button" class="opt${v==='dk'?' dk':''}" data-q="${q.id}" data-v="${v}" aria-pressed="${ans[q.id]===v}">${l}${sm?`<small>${sm}</small>`:''}</button>`).join('')}</div>
