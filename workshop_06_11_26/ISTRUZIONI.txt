@@ -222,6 +222,7 @@ Problemi comuni
   Sintomo                                         | Soluzione
   ------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------
   ❌ datasets o ModuleNotFoundError                | L'ambiente .venv non è attivo o Jupyter usa un altro kernel. Attivarlo, scegliere il kernel .venv e reinstallare.
+  DLL load failed (Windows, sezione 1.3)          | Windows blocca i file compilati di PyArrow, usato da datasets. Non serve cambiare le impostazioni di sicurezza: la cella 1.3 se ne accorge e scarica il file ufficiale di SQuAD (30 MB), stessi dati e stessi risultati. Se il notebook è stato scaricato prima del 4 novembre, riscaricarlo.
   ❌ Ollama / Ollama not reachable                 | Aprire l'app Ollama o eseguire ollama serve. Su Colab: rieseguire la sezione 1.1.
   No models installed                             | ollama pull granite4.1:8b (o gemma3:4b), poi rieseguire dalla sezione 3.5.
   Il modello è lentissimo o il computer si blocca | Guardare la riga "in GPU memory" stampata in 3.7: se la GPU è poco o per niente usata, passare a gemma3:4b, chiudere le altre applicazioni, oppure usare Colab.
