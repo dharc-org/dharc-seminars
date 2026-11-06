@@ -109,7 +109,6 @@ body.blackout #black{display:block}
 .title .kicker{font-size:22px;color:var(--muted);margin-bottom:20px}
 .biglink{font-family:var(--cond);font-weight:700;font-size:92px;line-height:1.02;color:var(--link);text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:14px;letter-spacing:-.02em;display:inline-block;max-width:15ch;cursor:pointer}
 .biglink:hover,.biglink:focus-visible{color:var(--visited)}
-.title .tq{font-family:var(--cond);font-weight:600;font-size:40px;line-height:1.1;color:var(--ink);margin:28px 0 0}
 .title .by{margin-top:40px;font-size:19px;color:var(--muted);max-width:none}
 .cursor{position:absolute;right:170px;top:318px;width:64px}
 .active .cursor{animation:tap 2.4s ease-in-out .8s 2}
@@ -227,6 +226,19 @@ body.presenter #pnotes{position:fixed;left:0;top:62vh;width:62vw;bottom:0;paddin
 #pnotes p{margin:0 0 12px;max-width:80ch}
 #pnotes .cue{font-weight:600}
 #pnotes .ask-c{color:var(--link)} #pnotes .do-c{color:var(--ok)} #pnotes .tip-c{color:var(--warn)}
+#pnotes .pc-key{background:#EEF3FE;border-left:4px solid var(--link);padding:6px 12px;font-weight:600}
+#pnotes .key-c{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--link)}
+#pnotes .pc-fx{font-family:"Cambria Math",Cambria,Georgia,"Times New Roman",serif;font-size:21px;background:#F3F5F9;border-left:4px solid var(--ink);padding:6px 12px;white-space:normal}
+#pnotes .fx-c{display:block;font-family:var(--sans);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+#pnotes .pc-next,#pnotes .pc-next-skip{border-top:2px dashed var(--rule);padding-top:10px;color:var(--visited)}
+#pnotes .next-c,#pnotes .next-skip-c{color:var(--visited)}
+#pnotes .pc-extra{color:#7A849A;font-size:.9em}
+.tstatic{font-family:var(--mono);font-size:30px;margin:6px 0 4px}
+.ctimer.big .tstatic{font-size:64px}
+.tstatic small{display:block;font-family:var(--sans);font-size:15px;color:var(--muted);margin-top:4px}
+#nnote{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:50;background:var(--ink);color:#fff;font-size:15px;padding:10px 16px;max-width:680px;box-shadow:0 6px 24px rgba(20,32,59,.25);transition:opacity .4s}
+#nnote[hidden]{display:none}
+.nonotes .needs-notes{display:none}
 #presenter h4{font-family:var(--cond);font-size:16px;color:var(--muted);margin:0 0 4px;font-weight:500}
 #ptime{font-family:var(--mono);font-size:44px}
 #pplan{font-size:16px;color:var(--muted)}
@@ -780,7 +792,7 @@ input[type=range]{accent-color:var(--link);width:180px;vertical-align:middle}
 .idfw{display:grid;grid-template-columns:1fr 400px;gap:28px;flex:1;min-height:0}
 .idfsvg{width:100%;height:auto}
 .idfsvg text{font-family:var(--sans)}
-.wchips{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;min-height:80px;margin:8px 0}
+.wchips{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;min-height:70px;margin:6px 0}
 .wchip{font-family:var(--mono);border:2px solid var(--ink);background:var(--panel);padding:2px 10px;transition:font-size .5s,background .5s,border-color .5s;line-height:1.3}
 .wchip small{font-size:12px;color:var(--muted);margin-left:4px}
 
@@ -1164,6 +1176,92 @@ table.cmp tr.same td.ev{background:#E3F4EA}
 .phist .zl::after{content:"0 = no difference";position:absolute;top:-20px;left:4px;font-family:var(--mono);font-size:12px;color:var(--err);white-space:nowrap}
 .pax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
 svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
+
+/* ---- v4: typeset formulas ---- */
+.fxbox{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--ink);padding:10px 16px 9px}
+.fxrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 34px}
+.fx{font-family:"Cambria Math",Cambria,Georgia,"Times New Roman",serif;font-size:22px;color:var(--ink);display:inline-block;line-height:1.25;white-space:nowrap}
+.fx i,.lg b i,.lg i{font-style:italic}
+.fx .fn{font-style:normal}
+.fx .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em}
+.fx .fr>span{display:block;padding:0 .22em;line-height:1.22;text-align:center}
+.fx .fr>span:first-child{border-bottom:1.5px solid currentColor;padding-bottom:.07em}
+.fx .fr>span+span{padding-top:.08em}
+.fx .op{font-size:1.3em;line-height:1;vertical-align:-.12em;margin:0 .02em}
+.fx .fr .op{font-size:1.1em}
+.fx sub,.fx sup{font-size:.6em;line-height:0}
+.fx .op+sub{margin-left:.05em}
+.fx .rt{display:inline-flex;align-items:stretch}
+.fx .rt>span{border-top:1.5px solid currentColor;padding:.04em .12em 0;margin-left:.02em}
+.fx .p1{color:var(--link)}.fx .p2{color:var(--warn)}.fx .p3{color:var(--visited)}
+.fxlab{font-family:var(--cond);font-weight:600;font-size:15px;color:var(--muted);margin-right:-18px}
+.lg{display:flex;flex-wrap:wrap;gap:1px 16px;font-size:14px;color:var(--muted);margin-top:7px;line-height:1.35}
+.lg b{font-family:"Cambria Math",Cambria,Georgia,"Times New Roman",serif;font-weight:400;color:var(--ink);font-size:16px;margin-right:4px}
+.lg2{font-size:14px;color:var(--muted);margin-top:4px}
+.fxwork{font-family:var(--mono);font-size:13.5px;color:var(--link);margin-top:2px;white-space:nowrap}
+.sub2{font-size:19px!important;color:var(--muted);margin:-4px 0 12px!important;max-width:none!important}
+.sub2 b{color:var(--ink)}
+/* split: in a leaking (red) paragraph, a hollow dot is a question of that paragraph on the other side */
+.pc.leak .dots i.away{background:transparent;border:1.5px dashed var(--err)}
+#splitSlide .split{grid-template-columns:1fr 362px}
+#splitSlide>p.note{max-width:none}
+#splitSlide .sub2{margin:-6px 0 14px!important}
+/* inverted index: steps and question bar */
+.invsteps{display:flex;gap:8px;margin:-6px 0 14px}
+.invsteps span{font-family:var(--cond);font-weight:600;font-size:15px;padding:3px 12px;border:1.5px solid var(--rule);color:var(--muted);background:var(--panel);transition:all .3s}
+.invsteps span.on{background:var(--link);border-color:var(--link);color:#fff}
+.invsteps span.done{color:var(--ink);border-color:var(--ink)}
+.invq{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:14px;padding:8px 12px;border:2px solid var(--ink);background:var(--panel)}
+.invq .lbl{font-family:var(--cond);font-weight:600;font-size:16px;margin-right:4px}
+.invq .qc{font-family:var(--mono);font-size:15px;padding:2px 9px;border:1.5px solid var(--rule);background:#fff;transition:all .3s}
+.invq .qc.hit{border-color:var(--link);background:var(--tint);color:var(--link);font-weight:600}
+.invq .qc.miss{border-color:var(--err);background:#FFF0EE;color:var(--err)}
+.invq .qc.miss::after{content:" ∅"}
+.invq .leg{flex-basis:100%;font-size:13px;color:var(--muted)}
+.ixr .neq{display:none;font-style:normal;font-family:var(--mono);font-size:13px;color:var(--err);margin-left:6px}
+.ixr.near{outline:1.5px dashed var(--err);outline-offset:-2px}
+.ixr.near .neq{display:inline}
+#judgeSlide .note{max-width:none}
+#judgeSlide .covwrap{display:grid;grid-template-columns:1fr 560px;gap:22px;align-items:start}
+#judgeSlide .covbars{grid-template-columns:150px 1fr 56px}
+.covwhy{border:2px solid var(--ink);background:var(--panel);padding:7px 13px;font-size:15px;line-height:1.35}
+.covwhy>b{font-family:var(--cond);font-size:16.5px;display:block;margin-bottom:3px}
+.covwhy ul{margin:0 0 5px;padding-left:18px}
+#judgeSlide .covwhy li{margin:0 0 1px!important;font-size:14.5px!important;line-height:1.32!important}
+#judgeSlide .covwhy ul{margin:0 0 5px!important;padding-left:18px!important}
+.covwhy p{margin:0!important;font-size:14px!important;color:var(--muted);max-width:none!important}
+/* lever 2x2 */
+.lv2{display:grid;grid-template-columns:230px 250px 250px 1fr;gap:8px 10px;align-items:stretch;margin-top:4px}
+.lv2 .h{font-family:var(--cond);font-weight:600;font-size:18px;text-align:center;align-self:end;padding-bottom:2px}
+.lv2 .h small,.lv2 .r small{display:block;font-family:var(--mono);font-weight:400;font-size:13px;color:var(--muted)}
+.lv2 .r{font-family:var(--cond);font-weight:600;font-size:18px;text-align:right;align-self:center;padding-right:6px}
+.lv2 .c{font-family:var(--mono);font-size:30px;text-align:center;padding:12px 6px;border:2px solid var(--rule);background:var(--panel);position:relative}
+.lv2 .c em{position:absolute;left:8px;top:4px;font-style:normal;font-size:14px;font-weight:600;color:var(--muted)}
+.lv2 .c.ab{border-color:var(--ok);background:#E3F4EA}
+.lv2 .c.best{background:var(--link);color:#fff;border-color:var(--link)}
+.lv2 .c.low{background:#EDF0F6;color:var(--muted)}
+.lv2 .ar{font-family:var(--cond);font-weight:600;font-size:16px;color:var(--link);align-self:center;padding-left:8px}
+.lv2 .ar.d{grid-column:2/4;text-align:center;align-self:start;padding:0}
+/* context: running total */
+.cbwhy{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--mono);font-size:13.5px}
+.cbwhy span{padding:2px 8px;border:1px solid var(--rule);background:var(--panel)}
+.cbwhy span.ok{border-color:#9CCFB3;color:var(--ok)}
+.cbwhy span.no{border-color:#F0B7B3;color:var(--err)}
+.cbwhy b{font-family:var(--cond);font-weight:600;font-size:14px;color:var(--muted);align-self:center;margin-right:2px}
+.cbr.skip .w span{color:var(--err)!important;font-weight:600}
+/* comparison: two readers */
+.tr2{display:grid;grid-template-columns:auto 34px 1fr;align-items:center;gap:0 6px;margin-bottom:16px}
+.tr-sh{display:flex;align-items:center;gap:8px;font-size:16px}
+.tr-sh span{border:2px solid var(--ink);background:var(--panel);padding:6px 10px;font-family:var(--cond);font-weight:600;white-space:nowrap}
+.tr-sh span.ctx{border-color:var(--ok);background:#E3F4EA}
+.tr-sh i{font-style:normal;color:var(--muted);font-size:20px}
+.tr-fk{align-self:stretch;position:relative}
+.tr-fk::before{content:"";position:absolute;left:0;top:50%;width:12px;border-top:2px solid var(--muted)}
+.tr-fk::after{content:"";position:absolute;left:12px;top:22%;bottom:22%;width:20px;border:2px solid var(--muted);border-right:0}
+.tr-rd{display:flex;flex-direction:column;gap:8px}
+.tr-rd div{border:2px solid var(--rule);background:var(--panel);padding:6px 12px;font-size:15.5px;line-height:1.35}
+.tr-rd div b{font-family:var(--cond);font-weight:600;font-size:17px;margin-right:6px}
+.tr-rd div code{font-size:13.5px;margin-left:6px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -1173,9 +1271,8 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
 
 <!-- ================= START ================= -->
 <section class="slide title" data-ch="0" data-title="Title">
-  <p class="kicker">Day 2 · Workshop · Retrieval-Augmented Generation with self-hosted models</p>
-  <a class="biglink" href="#2" data-go="next">Forge Your Personal AI Stack</a>
-  <p class="tq">Wrong passage, or wrong reading?</p>
+  <p class="kicker">Workshop · Retrieval-Augmented Generation, step by step</p>
+  <a class="biglink" href="#2" data-go="next">Wrong passage, or wrong reading?</a>
   <svg class="tstrip" viewBox="0 0 1060 92" data-loop="6" data-rm="2.4" aria-hidden="true">
     <line x1="60" y1="46" x2="1000" y2="46" stroke="#CDD4E2" stroke-width="3"/>
     <g><rect x="0" y="26" width="120" height="40" rx="20" fill="#fff" stroke="#14203B" stroke-width="2"/><text x="60" y="52" text-anchor="middle" font-size="17">question</text></g>
@@ -1184,7 +1281,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     <g><rect x="850" y="20" width="150" height="52" fill="#FBE2E0" stroke="#B3261E" stroke-width="2.5"/><text x="925" y="53" text-anchor="middle" font-size="20" fill="#B3261E">AUDIT</text></g>
     <g data-kf="0,120,46,0; .3,130,46,1; 1.6,250,46,1; 1.8,250,46,0; 2,440,46,0; 2.2,440,46,1; 3.4,550,46,1; 3.6,550,46,0; 3.8,730,46,0; 4,730,46,1; 5,840,46,1; 5.2,840,46,0; 6,840,46,0"><circle r="9" fill="#14203B"/></g>
   </svg>
-  <p class="by">Build a RAG pipeline over 18,891 Wikipedia paragraphs, and measure every stage.<br>← → or space to move · P presenter view · B black screen · F full screen</p>
+  <p class="by">Build a RAG pipeline over 18,891 Wikipedia paragraphs, and measure every stage.<br>← → or space to move<span class="needs-notes"> · P presenter view</span> · B black screen · F full screen</p>
   <aside class="notes" data-min="0.5"></aside>
 </section>
 
@@ -1327,6 +1424,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
 
 <section class="slide" data-ch="1" data-title="Split by paragraph, not by question" id="splitSlide">
   <h2>Hold some paragraphs out, fairly</h2>
+  <p class="sub2">We remove 20% of the paragraphs <b>before</b> building the index: their questions have no answer, by construction.</p>
   <div class="split-ctl">
     <div class="ctl"><span class="lbl">Split by</span><button class="tg" data-sp="para">paragraph</button><button class="tg" data-sp="q">question</button></div>
     <div class="ctl"><button class="tg" id="spRun">↻ Run again</button><label style="font-size:16px;display:flex;gap:6px;align-items:center"><input type="checkbox" id="spSeed" checked> <code>SEED = 42</code></label></div>
@@ -1365,12 +1463,26 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
   <h2>What counts as a correct retrieval?</h2>
   <div class="rule"><strong>Relevant</strong> = comes from the question's <strong>own paragraph</strong> <em>and</em> contains the <strong>gold answer as whole words</strong>. &nbsp;<span class="muted">Question: To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?</span></div>
   <div class="judge" id="judge"></div>
-  <div class="f" data-step="1" style="margin-top:14px">
-    <div class="covbars f" data-step="1">
-      <span><code>answer_coverage</code> window</span><div class="bar"><i style="--w:99%"></i></div><span class="num">0.990</span>
-      <span><code>answer_coverage</code> sentence</span><div class="bar"><i style="--w:98.3%"></i></div><span class="num">0.983</span>
+  <div class="f" data-step="1" style="margin-top:12px">
+    <div class="covwrap">
+      <div>
+        <p class="cap" style="margin:0 0 8px!important;font-size:14.5px!important">On the <b>300 test questions</b>: does at least one relevant chunk exist anywhere in the index, before any search?</p>
+        <div class="covbars f" data-step="1">
+          <span><code>answer_coverage</code> window</span><div class="bar"><i style="--w:99%"></i></div><span class="num">0.990</span>
+          <span><code>answer_coverage</code> sentence</span><div class="bar"><i style="--w:98.3%"></i></div><span class="num">0.983</span>
+        </div>
+        <p class="note f" data-step="2" style="margin-top:10px;font-size:16px!important">Almost a tie: 297 against 295 questions. The real cost of sentences comes later, <strong>in ranking</strong>: recall@5 0.697 against 0.847 (§2.6).</p>
+      </div>
+      <div class="covwhy f" data-step="2">
+        <b>Why so close? Because of how SQuAD was made</b>
+        <ul>
+          <li>The questions were written <strong>from these paragraphs</strong>: every answer is a short span of the text, almost always inside one sentence.</li>
+          <li><strong>Clean, edited English</strong>: the splitter rarely cuts through an answer.</li>
+          <li><strong>Short paragraphs</strong>: 1.7 windows each on average, and the overlap protects the cut.</li>
+        </ul>
+        <p>The 3 window misses are annotation errors (<code>.6%</code> for <code>0.6%</code>). On long, noisy or old texts the cut matters more: measure it.</p>
+      </div>
     </div>
-    <p class="note f" data-step="2" style="margin-top:8px">Almost a tie: about <strong>2 questions in 300</strong>. Both chunkings keep the evidence; the real cost of sentences shows up <strong>in ranking</strong> (§2.6: recall@5 0.697 vs 0.847). The 1% windows miss are quirks of the annotation (<code>.6%</code> cut out of <code>0.6%</code>).</p>
   </div>
   <aside class="notes" data-min="2.5"></aside>
 </section>
@@ -1418,15 +1530,19 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
 
 <section class="slide" data-ch="2" data-title="Step 2: the inverted index" id="invSlide" data-steps="3">
   <h2>Step 2 · An inverted index: word → chunks</h2>
+  <div class="invsteps" id="invSteps"><span>1 · build the index</span><span>2 · look up the question</span><span>3 · candidates</span></div>
   <div class="inv">
     <div id="invChunks"></div>
     <div>
       <p class="kicker2 f" data-step="1">index = {token: set of chunk ids}</p>
+      <p class="cap f" data-step="1" style="margin:0 0 8px!important;font-size:14px!important">Built once, from the chunks only: every word → the chunks that contain it. No question yet.</p>
       <div class="ixg f" data-step="1" id="invTab"></div>
-      <p class="note f" data-step="3" style="margin-top:12px">Query <code>{whom, virgin, mary, appear, 1858}</code> → candidates <strong>{12, 4871, 18203}</strong>. Chunk 9034 is never scored. On 25,588 chunks that is what keeps search fast.</p>
+      <div class="invq f" data-step="2" id="invQ"></div>
+      <p class="note f" data-step="3" style="margin-top:12px">Candidates <strong>{12, 4871, 18203}</strong>: the chunks that share at least one word with the question. Chunk 9034 is never scored. On 25,588 chunks, that is what keeps search fast.</p>
     </div>
   </div>
-  <aside class="notes" data-min="2"></aside>
+  
+<aside class="notes" data-min="2"></aside>
 </section>
 
 <section class="slide" data-ch="2" data-title="Step 3: three ways to score" id="scoreSlide">
@@ -1436,18 +1552,18 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       <div class="ctl" style="margin-bottom:6px"><span class="lbl">Weight words by</span><button class="tg" data-wm="overlap">overlap: all equal</button><button class="tg" data-wm="idf">IDF: rare = heavy</button></div>
       <p class="kicker2">To whom did the Virgin Mary appear in 1858 in Lourdes, France?</p>
       <div class="wchips" id="wChips"></div>
-      <div class="bmf" id="wFormula"></div>
+      <div class="fxbox" id="wFormula" style="margin:4px 0 10px"></div>
       <div class="rng">a word that appears in <input type="range" id="dfR" min="0" max="1000" value="600"> <b id="dfV"></b> of 25,000 chunks → idf <b id="idfV"></b></div>
     </div>
     <div><svg class="idfsvg" id="idfSvg" viewBox="0 0 400 330" aria-label="idf as a function of document frequency"></svg>
-      <p class="cap">idf(t) = log(1 + N / df(t)), N ≈ 25,000. Logarithmic x axis.</p></div>
+      <p class="cap">The idf curve for N ≈ 25,000 chunks. Logarithmic x axis: each tick is ten times more chunks.</p></div>
   </div>
   <aside class="notes" data-min="3"></aside>
 </section>
 
 <section class="slide" data-ch="2" data-title="BM25: term frequency and length" id="bmSlide">
   <h2>BM25: IDF plus two refinements</h2>
-  <div class="bmf" style="font-size:16px">score = Σ <span class="p3">idf(t)</span> × <span class="p1">f(t,c) × (k1 + 1)</span> / ( <span class="p1">f(t,c)</span> + <span class="p1">k1</span> × <span class="p2">(1 − b + b × len(c) / avg_len)</span> )</div>
+  <div class="fxbox" style="margin-bottom:12px"><div class="fxrow"><span class="fx"><span class="fn">BM25</span>(<i>q</i>, <i>c</i>) = <span class="op">Σ</span><sub><i>t</i> ∈ <i>q</i>∩<i>c</i></sub> <span class="p3">idf′(<i>t</i>)</span> · <span class="fr"><span><span class="p1"><i>f</i>(<i>t</i>, <i>c</i>) · (<i>k</i><sub>1</sub> + 1)</span></span><span><span class="p1"><i>f</i>(<i>t</i>, <i>c</i>) + <i>k</i><sub>1</sub></span> · <span class="p2">(1 − <i>b</i> + <i>b</i> · len(<i>c</i>) / avg_len)</span></span></span></span></div><div class="lg"><span><b><i>f</i>(<i>t</i>, <i>c</i>)</b>times <i>t</i> occurs in chunk <i>c</i></span><span><b><i>k</i><sub>1</sub></b>saturation · 1.5</span><span><b><i>b</i></b>length normalization · 0.75</span><span><b>len(<i>c</i>) / avg_len</b>chunk length / average length</span><span><b>idf′</b>BM25's own idf: log(1 + (<i>N</i> − df + 0.5) / (df + 0.5)), close to idf</span></div><div class="lg2"><b style="color:var(--ink)">Why 1.5 and 0.75?</b> Not laws: the classic defaults, found by testing on large collections (good <i>k</i><sub>1</sub> lies between 1.2 and 2; <i>b</i> = 0.75). Lucene and Elasticsearch use 1.2 and 0.75. Tune them on your own questions.</div></div>
   <div class="bm">
     <div>
       <h3 style="color:var(--link)">Term frequency, with saturation</h3>
@@ -1476,7 +1592,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       <div class="rl-col"><h3>idf <span class="note" style="font-size:13px!important">Σ idf / (√Σidf + 1)</span></h3><div class="rl-list" data-m="idf"></div></div>
       <div class="rl-col"><h3>bm25 <span class="note" style="font-size:13px!important">k1 1.5 · b 0.75</span></h3><div class="rl-list" data-m="bm25"></div></div>
     </div>
-    <p class="cap">A toy collection of 12 chunks, scored with the notebook's exact formulas. Green = contains the gold answer. Type your own question.</p>
+    <p class="cap">A toy collection of 12 chunks, scored with the notebook's exact formulas. Green = contains the gold answer. Click the box to type your own question; Esc to leave it.</p>
   </div>
   <aside class="notes" data-min="3"></aside>
 </section>
@@ -1507,18 +1623,20 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
 
 <section class="slide" data-ch="2" data-title="recall@k and MRR" id="rmSlide">
   <h2>Two metrics: recall@k and MRR</h2>
+  <p class="sub2">The answering step reads only the top <i>k</i> chunks. Did the evidence <b>get in</b>? And how <b>high</b> was it?</p>
   <div class="rm">
     <div>
-      <div class="rmh"><span>Q</span><span>#1</span><span>#2</span><span>#3</span><span>#4</span><span>#5</span><span>miss</span><span>hit@k</span><span>1/rank</span></div>
+      <div class="rmh"><span>Q</span><span>#1</span><span>#2</span><span>#3</span><span>#4</span><span>#5</span><span>miss</span><span>in top k</span><span>points</span></div>
       <div id="rmRows" style="position:relative"></div>
       <div class="rng" style="margin-top:10px">k <input type="range" id="rmK" min="1" max="5" value="5"> <b id="rmKV">5</b> &nbsp;<span class="note" style="font-size:14px!important">Click a cell to move the first relevant chunk.</span></div>
+      <div class="fxbox" style="margin-top:14px"><div class="fxrow" style="gap:6px 40px"><div><span class="fx">recall@<i>k</i> = <span class="fr"><span>|{ <i>q</i> : rank<sub><i>q</i></sub> ≤ <i>k</i> }|</span><span>|<i>Q</i>|</span></span></span><div class="fxwork" id="rmW1"></div></div><div><span class="fx">MRR = <span class="fr"><span>1</span><span>|<i>Q</i>|</span></span> <span class="op">Σ</span><sub><i>q</i> ∈ <i>Q</i></sub> <span class="fr"><span>1</span><span>rank<sub><i>q</i></sub></span></span></span><div class="fxwork" id="rmW2"></div></div></div><div class="lg"><span><b><i>Q</i></b>the test questions (5 here, 300 in the notebook)</span><span><b>rank<sub><i>q</i></sub></b>rank of the first relevant chunk for question <i>q</i></span><span><b>|…|</b>how many</span><span>a miss counts 0 in both</span></div></div>
     </div>
     <div>
       <div class="rmbox">
         <div class="m"><b>recall@<span id="rmK2">5</span></b><span id="rmRec">0.80</span></div>
-        <p class="sm" style="margin:0 0 14px">Share of questions with a relevant chunk in the top k. Ignores position.</p>
+        <p class="sm" style="margin:0 0 14px">Share of questions with a relevant chunk anywhere in the top k (the ✓ column). Where it sits doesn't matter.</p>
         <div class="m"><b>MRR</b><span id="rmMrr">0.41</span></div>
-        <p class="sm" style="margin:0">Mean of 1/rank of the first relevant chunk (miss = 0). Rewards the top.</p>
+        <p class="sm" style="margin:0">Points for where the first relevant chunk sits: 1st&nbsp;=&nbsp;1, 2nd&nbsp;=&nbsp;½, 3rd&nbsp;=&nbsp;⅓, 4th&nbsp;=&nbsp;¼, 5th&nbsp;=&nbsp;⅕, not&nbsp;found&nbsp;=&nbsp;0. MRR is the average of the points column.</p>
       </div>
       <p class="note" style="margin-top:12px">Recall rises, MRR flat: you find more, but lower. Both rise: the ranking really improved.</p>
     </div>
@@ -1552,8 +1670,8 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     <button class="vbtn" data-v="B"><b>B · the clever formula, the tidy cut</b>BM25 on <strong>sentence</strong> chunks</button>
   </div>
   <div class="f" data-step="1">
-    <div class="gbar" id="lvBars"></div>
-    <p class="note" style="margin-top:10px"><strong>A tie</strong>: 0.693 against 0.697, one question in 300. Chunking and ranking are <strong>two independent levers</strong>, and the humble one (how you cut) is as strong as the clever one (how you score). With both right, BM25 on windows: 0.847.</p>
+    <div class="lv2"><span></span><div class="h">plain overlap<small>simple formula</small></div><div class="h">BM25<small>clever formula</small></div><span class="ar">→ better formula: about +0.15</span><div class="r">window chunks<small>the good cut</small></div><div class="c ab"><em>A</em>0.693</div><div class="c best">0.847</div><span class="ar">↑ better cut:<br>about +0.15</span><div class="r">sentence chunks<small>the tidy cut</small></div><div class="c low">0.563</div><div class="c ab"><em>B</em>0.697</div><span></span><span></span><div class="ar d">recall@5 · 300 questions · notebook §2.6</div><span></span></div>
+    <p class="note" style="margin-top:10px"><strong>A tie</strong>: 0.693 against 0.697, one question in 300. A and B each pull <strong>one</strong> lever, and each lever is worth about 15 points. Pull both and you reach 0.847.</p>
   </div>
   <aside class="notes" data-min="1.5"></aside>
 </section>
@@ -1620,6 +1738,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     </div>
     <div class="cb-bucket" id="cbBucket"><span class="cap3" id="cbCap"></span></div>
     <div class="cb-rows" id="cbRows"></div>
+    <div class="cbwhy" id="cbWhy"></div>
     <div class="cb-ctx" id="cbCtx"></div>
   </div>
   <aside class="notes" data-min="2"></aside>
@@ -1658,6 +1777,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       <div class="sc-lab">context supplied</div>
       <div class="sc-tok" id="scCtx"></div>
       <label class="sm" style="display:flex;gap:6px;align-items:center;margin-top:8px"><input type="checkbox" id="scEv" checked> the context contains the answer (retrieval found it)</label>
+      <div class="fxbox" style="margin-top:10px;padding:8px 14px"><div class="fxrow" style="gap:4px 30px"><span class="fxlab">token_f1</span><span class="fx" style="font-size:20px"><i>P</i> = <span class="fr"><span>|<i>a</i> ∩ <i>g</i>|</span><span>|<i>a</i>|</span></span></span><span class="fx" style="font-size:20px"><i>R</i> = <span class="fr"><span>|<i>a</i> ∩ <i>g</i>|</span><span>|<i>g</i>|</span></span></span><span class="fx" style="font-size:20px">F1 = <span class="fr"><span>2 · <i>P</i> · <i>R</i></span><span><i>P</i> + <i>R</i></span></span></span></div><div class="lg" style="margin-top:4px"><span><b><i>a</i></b>answer words</span><span><b><i>g</i></b>gold words, both normalized</span><span><b>∩</b>words in common</span><span><b><i>P</i></b>precision: how much of the answer is gold</span><span><b><i>R</i></b>recall: how much of the gold is in the answer</span></div></div>
     </div>
     <div class="mets" id="scM"></div>
   </div>
@@ -1823,6 +1943,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
 
 <section class="slide" data-ch="4" data-title="The comparison" id="raceSlide">
   <h2>Same evidence, two readers</h2>
+  <div class="tr2"><div class="tr-sh"><span>question</span><i>→</i><span>BM25 · frozen</span><i>→</i><span class="ctx">the same 5 chunks</span></div><div class="tr-fk"></div><div class="tr-rd"><div><b>copy baseline</b>copies the context sentence that shares the most rare question words, and cites its chunk <code>→ a whole sentence [id]</code></div><div><b>granite4.1:8b</b>reads the rules, the chunks and the question, and writes the shortest answer with a citation <code>→ a short span [id]</code></div></div></div>
   <div class="race">
     <div class="lane"><span class="nm">copy baseline</span><div class="trk" id="raceA"></div><span class="clk" id="raceAc">0.0 s</span></div>
     <div class="lane"><span class="nm">granite4.1:8b</span><div class="trk" id="raceB"></div><span class="clk" id="raceBc">0.0 s</span></div>
@@ -1833,7 +1954,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     <tr class="same"><td>extractive-baseline</td><td>0.000</td><td>0.00–0.00</td><td>0.124</td><td>1.000</td><td class="ev">0.933</td><td>0.000</td><td>0.000</td></tr>
     <tr class="same"><td>granite4.1:8b</td><td>0.567</td><td>0.37–0.73</td><td>0.701</td><td>0.967</td><td class="ev">0.933</td><td>0.100</td><td>32.07</td></tr>
   </table>
-  <aside class="notes" data-min="2"></aside>
+  <aside class="notes" data-min="2.5"></aside>
 </section>
 
 <section class="slide" data-ch="4" data-title="Is the gap real?" id="pairSlide" data-opt="1">
@@ -2051,7 +2172,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     </div>
     <div>
       <h3>Hybrid: reciprocal rank fusion</h3>
-      <p class="sm">score = 1/(60 + rank in BM25) + 1/(60 + rank in dense). No need to put the two scores on one scale.</p>
+      <div class="fxbox" style="margin:2px 0 10px;padding:8px 14px"><div class="fxrow"><span class="fx" style="font-size:20px">RRF(<i>c</i>) = <span class="fr"><span>1</span><span>60 + rank<sub>BM25</sub>(<i>c</i>)</span></span> + <span class="fr"><span>1</span><span>60 + rank<sub>dense</sub>(<i>c</i>)</span></span></span></div><div class="lg"><span><b>rank<sub>L</sub>(<i>c</i>)</b>position of chunk <i>c</i> in list <i>L</i></span><span><b>60</b>a constant that damps the gap between rank 1 and rank 2</span></div><div class="lg2">Ranks, not scores: no need to put BM25 scores and cosines on one scale.</div></div>
       <table class="rrf" id="rrfT"></table>
       <button class="tg sm2" id="rrfGo" style="margin-top:8px">Fuse ▸</button>
     </div>
@@ -2074,6 +2195,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       <div class="rng">pool size <input type="range" id="rrkP" min="5" max="50" step="5" value="20"> <b id="rrkPV">20</b></div></div>
     <div class="rmbox"><div class="m" style="margin:0"><b>model calls</b><span id="rrkC">400</span></div></div>
   </div>
+  <p class="note" style="margin-top:16px">A reranker can only <strong>reorder</strong> the candidates. If the evidence is not among them, nothing brings it back: recall at the pool size is its ceiling. What it improves is the order, so MRR, and what the model reads first.</p>
   <aside class="notes" data-min="2"></aside>
 </section>
 
@@ -2116,15 +2238,26 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
      and paste its output between the two script tags below, replacing the whole line. -->
 <script type="application/json" id="slidedata">{"source": "illustrative", "threshold": null, "position": null}</script>
 <script type="application/json" id="glossary">{"g": {"rag": {"t": "Retrieval-Augmented Generation (RAG)", "d": "Answering a question in two steps: retrieve a few relevant passages from a collection, then generate an answer from them, ideally with a citation.", "h": "The model's own knowledge is \"augmented\" with documents you choose. Most \"chat with your documents\" tools work this way."}, "retrieval": {"t": "Retrieval", "d": "Finding the passages most likely to contain the answer to a question.", "h": "In this workshop: lexical search with overlap, IDF or BM25 over 25,588 window chunks. Its output is the context."}, "generation": {"t": "Generation / answering step", "d": "Turning the retrieved passages into a short answer.", "h": "Two versions today: an extractive baseline that copies the best sentence, and a language model that reads and answers."}, "squad": {"t": "SQuAD", "d": "Stanford Question Answering Dataset: Wikipedia paragraphs with questions written by people and the exact span that answers each one.", "h": "v1.1, CC BY-SA 4.0. Train split: 87,599 questions over 18,891 unique paragraphs. Clean modern English, so a best case."}, "span": {"t": "Span", "d": "A continuous piece of the original text, identified by where it starts.", "h": "SQuAD stores each answer as text plus answer_start, the character offset. \"Saint Bernadette Soubirous\" starts at 515."}, "corpus": {"t": "Corpus / collection / index", "d": "The set of texts the system searches.", "h": "Here: 80% of the SQuAD paragraphs (15,112), cut into chunks. The other 20% are held out."}, "heldout": {"t": "Held-out set", "d": "Data deliberately kept out of the index.", "h": "Here 20% of paragraphs (3,779). Their 17,360 questions have no answer in the index, so the only right response is NOT ENOUGH EVIDENCE."}, "leak": {"t": "Data leakage", "d": "When information from the test side is visible to the system.", "h": "Splitting by question instead of by paragraph would put a held-out question's paragraph back in the index and silently break the \"I don't know\" test."}, "seed": {"t": "Random seed", "d": "The starting value of the random number generator.", "h": "SEED = 42 makes every \"random\" choice the same on every run, so a change in the numbers comes from a change you made. The notebook also uses it to shuffle the questions, which SQuAD stores article by article."}, "chunk": {"t": "Chunk", "d": "A piece of a paragraph: the unit the retriever returns.", "h": "Short enough to keep the evidence in focus, long enough to keep it intact. Each has an id like squad-b36b7d44a56c::chunk-001."}, "window": {"t": "Window chunk", "d": "A fixed slice of about 100 words, overlapping its neighbour by 20.", "h": "Usually keeps the question's keywords and the answer together; the overlap means an answer on a boundary is whole in at least one window."}, "sentchunk": {"t": "Sentence chunk", "d": "One sentence per chunk, split at . ! or ? followed by a space.", "h": "Tidy, but often separates the keywords (\"Father Sorin\") from the answer (\"He … in 1876\"). 75,490 of them against 25,588 windows."}, "coverage": {"t": "answer_coverage", "d": "Share of questions for which at least one relevant chunk exists in the index.", "h": "A ceiling set by chunking alone: window 0.990, sentence 0.983. Coverage is always at least recall."}, "relevant": {"t": "Relevant chunk", "d": "A chunk from the question's own paragraph that contains the gold answer as whole words.", "h": "A strict, mechanical rule: \"3\" does not match inside \"1933\". It may miss useful chunks from other paragraphs, but it scores thousands of questions in seconds."}, "lexical": {"t": "Lexical retrieval", "d": "Search that matches words.", "h": "Transparent: when it returns a wrong passage you can point at the word that caused it. Opposite of dense (embedding) retrieval."}, "token": {"t": "Token / tokenize", "d": "Splitting text into units; here, lowercase letters and digits, minus stopwords.", "h": "\"To whom did the Virgin Mary appear in 1858?\" → {whom, virgin, mary, appear, 1858}. Language models use a different kind of token (pieces of words)."}, "stopword": {"t": "Stopword", "d": "A very common function word dropped before matching.", "h": "the, a, of, to, what, did… They appear everywhere and say little about relevance."}, "stemming": {"t": "Stemming", "d": "Reducing words to a common root, so \"appeared\" matches \"appear\".", "h": "The notebook does not stem, for transparency. Helps recall, sometimes hurts precision."}, "inverted": {"t": "Inverted index", "d": "A dictionary from each token to the chunks that contain it.", "h": "Like the index at the back of a book. At query time only chunks sharing a token with the question are scored."}, "ranking": {"t": "Ranking function", "d": "A formula that scores how well a chunk matches a question.", "h": "Overlap, IDF and BM25 learn nothing and write nothing: they only decide the order."}, "overlap": {"t": "Overlap score", "d": "|shared tokens| / √(|query tokens| × |chunk tokens|).", "h": "Every shared word counts the same; the denominator boosts short chunks. recall@5 0.693 on our data."}, "idf": {"t": "IDF (inverse document frequency)", "d": "A word weight: idf(t) = log(1 + N / df(t)). Rare words weigh more.", "h": "With N ≈ 25,000: france ≈ 3.9, 1858 ≈ 6.7, bernadette ≈ 8.7. Computed once from the corpus; nothing is trained. recall@5 0.803."}, "df": {"t": "df (document frequency)", "d": "The number of chunks that contain a token.", "h": "The input to IDF. A word in every chunk has df = N and a weight near zero."}, "bm25": {"t": "BM25", "d": "The standard ranking function of search engines: IDF plus term frequency with saturation (k1) and length normalization (b).", "h": "\"Best Matching 25\", from the Okapi system (1990s); default in Lucene and Elasticsearch. Best on our data: recall@5 0.847, MRR 0.751."}, "tf": {"t": "Term frequency f(t,c)", "d": "How many times a token occurs in a chunk.", "h": "In BM25 repetition helps with diminishing returns: 2× counts 1.43, 10× counts 2.17, never more than k1 + 1."}, "k1": {"t": "k1 (BM25)", "d": "The saturation parameter, default 1.5.", "h": "Low k1: repetition hardly matters. High k1: it matters a lot. The limit for infinite repetitions is k1 + 1."}, "b": {"t": "b (BM25)", "d": "Length normalization, from 0 (length ignored) to 1 (long chunks fully penalised); default 0.75.", "h": "Matters when chunk lengths vary a lot. Our windows are at most 100 words, so b has a narrow range to work on (exercise 2)."}, "recall": {"t": "recall@k", "d": "Share of questions with at least one relevant chunk in the top k.", "h": "Limits everything downstream: evidence outside the top k never reaches the answering step. Ignores position."}, "mrr": {"t": "MRR (mean reciprocal rank)", "d": "The average of 1 / rank of the first relevant chunk; a miss counts 0.", "h": "Rank 1 → 1, rank 2 → 0.5, rank 3 → 0.33. Rewards putting the evidence at the top. At k = 1 it equals recall@1."}, "context": {"t": "Context", "d": "The block of retrieved chunks pasted into the answering step.", "h": "Built in rank order until max_words is full; each chunk is labelled with its id so citations can be checked."}, "maxwords": {"t": "max_words (word budget)", "d": "The maximum number of words in the context.", "h": "A chunk that does not fit is skipped and a smaller one after it can still enter, so k alone is a misleading knob."}, "citation": {"t": "Citation (chunk id in brackets)", "d": "The identifier of the chunk an answer came from, e.g. [squad-b36b7d44a56c::chunk-001].", "h": "Makes provenance checkable by a program. A valid citation proves where the text came from, and only that."}, "baseline": {"t": "Extractive baseline", "d": "Return the context sentence with the highest IDF-weighted overlap with the question, plus its chunk id.", "h": "Never invents a source (valid_citations 1.0), but cannot cut a sentence down to a span: exact_match 0.0, token_f1 0.124 in the reference run."}, "abstain": {"t": "Abstention / NOT ENOUGH EVIDENCE", "d": "The system saying it cannot answer from the evidence.", "h": "A fixed string so it can be detected automatically. Right when the evidence is missing; a missed answer when it was there."}, "normalize": {"t": "Answer normalization", "d": "Lowercase, remove citations, punctuation and the articles a / an / the, and turn number words up to twenty into digits, before comparing.", "h": "So \"The Observer.\" equals \"observer\" and \"three\" equals \"3\". Ordinals (\"fifth\" / \"5th\") are not covered: every rule is a choice."}, "em": {"t": "exact_match", "d": "1 if the normalized answer equals a normalized gold answer, else 0.", "h": "Strict: a correct but wordy answer scores 0."}, "f1": {"t": "token_f1", "d": "Word-by-word overlap between answer and gold: the harmonic mean of precision and recall over tokens.", "h": "Partial credit. High F1 with zero exact match is the signature of a system that understands but is wordy."}, "hascite": {"t": "has_citation", "d": "Is there anything in square brackets?", "h": "Checks the shape of a citation, not its substance."}, "validcite": {"t": "valid_citations", "d": "Were all the cited chunk ids really in the context?", "h": "has_citation True with valid_citations False means an invented source: the most dangerous failure for scholarship."}, "evidence": {"t": "retrieval_evidence", "d": "Did the context contain a relevant chunk: one from the question's own paragraph, with the gold answer?", "h": "Describes what retrieval delivered, independently of the answer. Assigns blame: False → retrieval failed; True and wrong → answering failed."}, "llm": {"t": "Language model (LLM)", "d": "A neural network trained to continue text; here it reads the context and writes a short answer.", "h": "Today: granite4.1:8b by default, gemma3:4b on 8 GB laptops, run through Ollama on your laptop or on Colab."}, "ollama": {"t": "Ollama", "d": "A program that runs language models locally and serves them on http://localhost:11434.", "h": "Your questions and documents stay on your laptop. ollama pull downloads a model; ollama serve starts the server."}, "thinking": {"t": "Thinking (reasoning) model", "d": "A model that writes a hidden chain of reasoning before its answer.", "h": "The reasoning uses the same output budget: with num_predict 120 the answer can come back empty. The backend sends think: False and treats an empty response as an error."}, "numpredict": {"t": "num_predict / output budget", "d": "The maximum number of tokens the model may generate.", "h": "120 in the notebook: plenty for a span and a citation, not for hidden reasoning."}, "temperature": {"t": "Temperature", "d": "How random the model's word choices are; 0 means always the most likely.", "h": "The notebook uses 0 so runs are as repeatable as possible."}, "prompt": {"t": "Prompt", "d": "The full text sent to the model: instructions, context, question, and \"ANSWER:\".", "h": "A contract: each line prevents a measurable failure. A request, not a guarantee."}, "grounding": {"t": "Grounding", "d": "Making the model answer only from the supplied passages.", "h": "\"Use only the passages inside CONTEXT. Do not use outside knowledge.\" Otherwise you measure the model's training data, not your retrieval."}, "fewshot": {"t": "Worked example (one-shot)", "d": "An example of the exact output format inside the prompt.", "h": "Without it, models wrote [chunk-001] instead of the full id and valid_citations fell from 1.00 to 0.58. Side effect: a small model may copy the example's id."}, "stopseq": {"t": "Stop sequence", "d": "A string at which generation is cut off.", "h": "On the raw completion endpoint the model keeps writing and invents the next QUESTION: the backend stops at \"\\nQUESTION:\", \"\\nCONTEXT:\" and a blank line."}, "fabrication": {"t": "Fabrication (hallucination)", "d": "A fluent answer not supported by the evidence.", "h": "Reference run: \"people of mixed Bantu, Khoisan, and European descent\" for whom the Coloured group ranked above, true and off-question. Development run: \"Golden Dome\", a real Notre Dame landmark, valid citation, wrong."}, "injection": {"t": "Prompt injection", "d": "Text inside a document that tries to give the model instructions.", "h": "Anything that enters your index can try to steer the model. In DH the realistic risk is contamination: OCR noise, boilerplate, editorial notes."}, "provenance": {"t": "Provenance", "d": "Knowing where each document in the index came from and who could edit it.", "h": "One of the partial defences against injection, and good scholarly practice anyway."}, "threshold": {"t": "Abstention threshold", "d": "Abstain when the top retrieval score is below a cutoff.", "h": "Answerable and unanswerable score distributions overlap, so every cutoff trades fabrications prevented against correct answers lost. Belongs to one corpus and one scoring function."}, "embedding": {"t": "Embedding", "d": "A vector representing a text, placed so that related meanings are close together.", "h": "Matches paraphrases (\"purchase\" ~ \"acquisition\"); weaker on exact names, dates and codes. nomic-embed-text in exercise 6."}, "cosine": {"t": "Cosine similarity", "d": "The cosine of the angle between two vectors: 1 = same direction.", "h": "With vectors normalized to length 1, the dot product is the cosine."}, "hybrid": {"t": "Hybrid search", "d": "Combining lexical and dense retrieval.", "h": "Lexical stays strong on names, dates and rare terms, which make up much of a DH corpus."}, "rrf": {"t": "Reciprocal rank fusion (RRF)", "d": "Combine rankings by summing 1 / (60 + rank) from each list.", "h": "Uses only ranks, so BM25 and cosine scores never need to be on the same scale."}, "rerank": {"t": "Reranking", "d": "Retrieve many candidates cheaply, then re-sort them with a slower, more accurate model.", "h": "Cost = questions × pool size model calls. Production systems use a cross-encoder such as bge-reranker."}, "jsonl": {"t": "rag_outputs.jsonl / rag_results.csv", "d": "The files where every run is saved: one line per question with the raw answer, and one row per run with the averages.", "h": "Averages tell you that something went wrong; the raw answers tell you what. Each run carries a SESSION_ID."}, "classify": {"t": "Failure classification", "d": "Sorting each answer into correct, abstained correctly, RETRIEVAL failed answered anyway, over-cautious, right idea wrong span, GENERATION failed.", "h": "Each bucket points to a stage and a fix. Only GENERATION failed is helped by a stronger model."}, "ceiling": {"t": "Retrieval ceiling", "d": "The best answering score possible given what retrieval found.", "h": "Here retrieval_evidence = 0.93: even a perfect reader gets at most 28 of 30."}, "multihop": {"t": "Multi-hop question", "d": "A question that needs two or more passages combined.", "h": "Needs its own dataset (HotpotQA, 2WikiMultihopQA), a retrieval loop, and a metric over sets of passages."}, "bootstrap": {"t": "Bootstrap interval", "d": "An error bar for an average over few questions: resample the questions with replacement many times and keep the middle 95% of the means.", "h": "In the notebook: em_low – em_high. For granite4.1:8b on 30 questions: 0.37 – 0.73. Four times the questions halves the width."}, "llmjudge": {"t": "LLM as judge", "d": "A language model asked whether an answer means the same as the reference.", "h": "Catches paraphrases that exact match misses; makes mistakes of its own, so validate it on hand-labelled answers. Exercise 10."}, "rewrite": {"t": "Query rewriting (HyDE)", "d": "Let the model rewrite the question, or write a hypothetical answer passage, before searching.", "h": "Adds vocabulary the question lacks. On SQuAD the model may already know the answer from Wikipedia: test on your own corpus. Exercise 11."}}, "m": {"Title": ["rag", "retrieval", "generation"], "The hook: a confident answer": ["citation", "validcite", "fabrication"], "What RAG does": ["rag", "chunk", "context", "citation"], "Two separate decisions": ["ranking", "generation", "baseline"], "Roadmap: three hours": ["ollama", "llm"], "Setup check": ["ollama", "llm"], "Anatomy of a SQuAD example": ["squad", "span"], "Why SQuAD, and why it's a best case": ["squad", "corpus"], "Split by paragraph, not by question": ["heldout", "leak", "seed", "corpus"], "Chunking: sentences or windows": ["chunk", "window", "sentchunk", "coverage"], "What counts as a correct retrieval?": ["relevant", "coverage", "chunk"], "Lab: notebook §1.1–1.6": ["seed", "coverage", "heldout"], "Step 1: tokenize": ["token", "stopword", "stemming"], "Step 2: the inverted index": ["inverted", "lexical", "token"], "Step 3: three ways to score": ["overlap", "idf", "df"], "BM25: term frequency and length": ["bm25", "tf", "k1", "b"], "Ranking lab": ["overlap", "idf", "bm25"], "Look at a ranking before you measure it": ["ranking", "relevant"], "recall@k and MRR": ["recall", "mrr"], "What the comparison shows": ["recall", "mrr", "bm25"], "Chunking vs ranking": ["window", "sentchunk", "coverage"], "Freeze the retriever": ["bm25", "retrieval"], "Lab: notebook §2.1–2.7": ["recall", "mrr", "bm25"], "Assembling the context": ["context", "maxwords", "citation"], "The extractive baseline": ["baseline", "idf", "abstain"], "Six metrics": ["normalize", "em", "f1", "hascite", "validcite", "evidence", "abstain"], "retrieval_evidence assigns blame": ["evidence", "abstain"], "The thinking-model trap": ["thinking", "numpredict"], "The prompt is a contract": ["prompt", "grounding", "fewshot", "abstain"], "Stop sequences": ["stopseq"], "Reading the model's results": ["em", "f1", "evidence", "fabrication"], "Retrieval sets the ceiling": ["ceiling", "evidence"], "Lab: notebook §3.1–3.8": ["ollama", "thinking", "jsonl", "temperature"], "The comparison": ["baseline", "evidence", "validcite"], "Classify every failure": ["classify", "evidence"], "The usual surprise": ["ceiling", "classify"], "Lab: notebook §4.1–4.3": ["jsonl", "fabrication"], "Reading the fabrications": ["fabrication", "validcite", "citation"], "Does it know what it doesn't know?": ["heldout", "abstain", "fabrication"], "An abstention threshold": ["threshold", "bm25"], "Prompt injection": ["injection", "provenance", "validcite"], "Lab: notebook §4.4–4.5": ["injection", "heldout"], "Embeddings and hybrid search": ["embedding", "cosine", "hybrid", "rrf"], "Reranking": ["rerank"], "The eleven exercises": ["rerank", "embedding", "llmjudge", "rewrite", "bootstrap"], "How sure are we?": ["bootstrap", "em"], "What the model actually reads": ["prompt", "context", "citation", "maxwords"], "Is the gap real?": ["bootstrap", "f1"], "Where the evidence sits": ["mrr", "context", "recall"]}}</script>
+<!-- Speaker notes: if notes.js sits in the same folder, the presenter view (P), the timers and the search are enabled.
+     Without it the deck works for the audience only. Keep notes.js private. -->
 <script src="notes.js"></script>
 <script>
 (function(){
   const deck=document.getElementById('deck');
   const slides=[...document.querySelectorAll('.slide')];
-  if(window.DECK_NOTES)slides.forEach(s=>{const d=DECK_NOTES[s.dataset.title];if(!d)return;const n=s.querySelector('aside.notes');if(n)n.innerHTML=d.n;if(d.b)s.dataset.bridge=d.b;});
+  // Speaker notes live inline (all-in-one file) or in notes.js next to index.html (window.DECK_NOTES).
+  // Without notes the deck still works, but the presenter view, the timers and the search are switched off.
+  if(window.DECK_NOTES)slides.forEach(s=>{const x=DECK_NOTES[s.dataset.title];if(!x)return;let n=s.querySelector('aside.notes');if(!n){n=document.createElement('aside');n.className='notes';s.appendChild(n);}n.innerHTML=x.n;if(x.m!=null)n.dataset.min=x.m;if(x.b)s.dataset.bridge=x.b;});
+  const HAS_NOTES=slides.some(s=>{const n=s.querySelector('aside.notes');return !!(n&&n.textContent.trim());});
+  if(!HAS_NOTES)document.documentElement.classList.add('nonotes');
+  function notice(msg,ms){let el=document.getElementById('nnote');if(!el){el=document.createElement('div');el.id='nnote';el.setAttribute('role','status');document.body.appendChild(el);}
+    el.textContent=msg;el.hidden=false;el.style.opacity=1;clearTimeout(notice.t);notice.t=setTimeout(()=>{el.style.opacity=0;setTimeout(()=>{el.hidden=true;},400);},ms||4000);}
   const chLinks=[...document.querySelectorAll('#bar a[data-ch]')];
   const count=document.getElementById('count');
-  const isPresenter=new URLSearchParams(location.search).has('presenter');
+  const wantPresenter=new URLSearchParams(location.search).has('presenter');
+  const isPresenter=wantPresenter&&HAS_NOTES;
+  const NO_NOTES_MSG='Presenter view, timers and search need the speaker notes: put notes.js in the same folder as this file.';
+  if(wantPresenter&&!HAS_NOTES)setTimeout(()=>notice(NO_NOTES_MSG,8000),300);
   let chan=null;try{chan=('BroadcastChannel' in window)?new BroadcastChannel('rag-deck'):null;}catch(e){chan=null;}
   const H={}; const bc=(k,v)=>{if(chan)chan.postMessage({cmd:'x',k:k,v:v});};
   const seen=new Set();
@@ -2185,6 +2318,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     else if(k==='Home'){go(0);} else if(k==='End'){go(slides.length-1);}
     else if(k==='b'||k==='B'||k==='.'){ if(isPresenter&&chan) chan.postMessage({cmd:'black'}); else document.body.classList.toggle('blackout'); }
     else if(k==='f'||k==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    else if((k==='p'||k==='P')&&!isPresenter&&!HAS_NOTES){ notice(NO_NOTES_MSG); }
     else if((k==='p'||k==='P')&&!isPresenter){ window.open(location.pathname+'?presenter#'+(cur+1),'rag-presenter','width=1300,height=850'); }
   });
   $('#prev').onclick=prev;
@@ -2268,7 +2402,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       $('#spIdxN').textContent=pi+' paragraphs · '+qi+' questions';$('#spHoN').textContent=ph+' paragraphs · '+qh+' questions';
       $$('[data-sp]',S).forEach(b=>b.classList.toggle('on',b.dataset.sp===st.mode));cb.checked=st.seedOn;
       if(st.mode==='para'){v.className='verdict ok';v.innerHTML='<p>Each paragraph sits on <strong>one side</strong>, with all its questions. Every held-out question is truly unanswerable from the index.</p>';}
-      else{v.className='verdict bad';v.innerHTML='<p><strong>'+leaks+' paragraphs leak</strong> (red): some of their questions are held out, but the paragraph, and the answer, is still in the index. The "I don\'t know" test silently loses its meaning.</p>';}
+      else{v.className='verdict bad';v.innerHTML='<p><strong>'+leaks+' paragraphs leak</strong> (red): some of their questions are held out, but the paragraph, and the answer, is still in the index. The "I don\'t know" test silently loses its meaning.</p><p style="font-size:15px;margin-top:4px">● a question on this side &nbsp;·&nbsp; ○ a question of the same paragraph that went to the other side</p>';}
       const sig=st.mode+':'+[...idx.children].map(c=>c.firstChild.textContent).join(',');
       msg.textContent=lastSig===null?'':(sig===lastSig?(st.seedOn?'Same split as last run: the seed fixes every random choice.':'Same split, by chance.'):(st.seedOn?'':'Different split from last run: your numbers would change for no reason.'));
       lastSig=sig;}
@@ -2325,7 +2459,8 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
   // ---------- timers ----------
   const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
   const fmtL=s=>{s=Math.floor(s);const h=Math.floor(s/3600);return h?h+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):fmt(s);};
-  $$('.ctimer').forEach(el=>{const id=el.dataset.tid,def=+el.dataset.def||10,pres=(el.dataset.presets||'8,12,15,18,20').split(',').map(Number);
+  if(!HAS_NOTES)$$('.ctimer').forEach(el=>{el.innerHTML=(el.classList.contains('big')?'':'<h3>'+esc(el.dataset.label||'Timer')+'</h3>')+'<div class="tstatic">'+(+el.dataset.def||10)+' min<small>planned time</small></div>';});
+  if(HAS_NOTES)$$('.ctimer').forEach(el=>{const id=el.dataset.tid,def=+el.dataset.def||10,pres=(el.dataset.presets||'8,12,15,18,20').split(',').map(Number);
     el.innerHTML=(el.classList.contains('big')?'':'<h3>'+esc(el.dataset.label||'Timer')+'</h3>')+
       '<div class="bset"><label>Minutes</label><input type="number" min="1" max="180" value="'+def+'">'+pres.map(m=>'<button type="button" class="btn" data-m="'+m+'">'+m+'</button>').join('')+'</div>'+
       '<div class="tnum">'+fmt(def*60)+'</div><div class="tbar"><i></i></div><div class="jbtns"><button type="button" class="tgo">Start timer</button><button type="button" class="trs">Reset</button></div><p class="tback"></p>';
@@ -2368,11 +2503,20 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     const CH=[{n:12,t:'the Virgin Mary appeared in 1858'},{n:4871,t:'Mary Shelley published Frankenstein in 1818'},{n:9034,t:'the grotto at Lourdes'},{n:18203,t:'1858: the Great Stink of London'}];
     const Q=['whom','virgin','mary','appear','1858'];
     $('#invChunks').innerHTML=CH.map(c=>'<div class="ich" data-n="'+c.n+'"><span class="cno">chunk '+c.n+'</span><p>'+esc(c.t)+'</p><div class="tks">'+tokens(c.t).map(x=>'<span>'+x+'</span>').join('')+'</div></div>').join('');
+    // 1 · the index is built from the chunks alone: every word -> the chunks that contain it
     const idx={};CH.forEach(c=>new Set(tokens(c.t)).forEach(t=>(idx[t]=idx[t]||[]).push(c.n)));
-    Q.forEach(q=>{if(!idx[q])idx[q]=null;});
-    const keys=Object.keys(idx).sort();
-    $('#invTab').innerHTML=keys.map(k=>'<div class="ixr'+(idx[k]?'':' qx')+'" data-t="'+k+'"><b>'+k+'</b><span>'+(idx[k]?idx[k].map(n=>'<span class="pl">'+n+'</span>').join(''):'∅ not in index')+'</span></div>').join('');
-    onStep('invSlide',s=>{$$('.ixr',S).forEach(r=>{const t=r.dataset.t,inQ=Q.includes(t);r.classList.toggle('qh',s>=2&&inQ&&!!idx[t]);r.classList.toggle('qm',s>=2&&inQ&&!idx[t]);});
+    $('#invTab').innerHTML=Object.keys(idx).sort().map(k=>'<div class="ixr" data-t="'+k+'"><b>'+k+'</b><span>'+idx[k].map(n=>'<span class="pl">'+n+'</span>').join('')+(k==='appeared'?'<em class="neq">≠ appear</em>':'')+'</span></div>').join('');
+    // 2 · the question arrives: look up its words one at a time; the index itself never changes
+    $('#invQ').innerHTML='<span class="lbl">question</span>'+Q.map(q=>'<span class="qc" data-t="'+q+'">'+q+'</span>').join('')+'<span class="leg">blue: found in the index · red ∅: none of these four chunks contains it</span>';
+    const row=t=>$('.ixr[data-t="'+t+'"]',S),chip=q=>$('.qc[data-t="'+q+'"]',S);
+    const look=q=>{if(idx[q]){chip(q).classList.add('hit');row(q).classList.add('qh');}else{chip(q).classList.add('miss');if(q==='appear')row('appeared').classList.add('near');}};
+    let tok=0;
+    onStep('invSlide',s=>{const my=++tok;
+      $$('#invSteps span',S).forEach((e,i)=>{e.classList.toggle('on',i+1===s);e.classList.toggle('done',i+1<s);});
+      $$('.qc',S).forEach(c=>c.classList.remove('hit','miss'));$$('.ixr',S).forEach(r=>r.classList.remove('qh','near'));
+      if(s===2)Q.forEach((q,i)=>setTimeout(()=>{if(my===tok)look(q);},400+i*420));
+      else if(s>=3)Q.forEach(look);
+      // 3 · candidates: every chunk found at least once
       const cand=new Set();Q.forEach(q=>(idx[q]||[]).forEach(n=>cand.add(n)));
       $$('.ich',S).forEach(c=>{const n=+c.dataset.n;c.classList.toggle('cand',s>=3&&cand.has(n));c.classList.toggle('skip',s>=3&&!cand.has(n));});});})();
 
@@ -2393,8 +2537,8 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     chips.innerHTML=W.map(w=>'<span class="wchip" data-w="'+w[0]+'">'+w[0]+'<small></small></span>').join('');
     function draw(){$$('[data-wm]',S).forEach(b=>b.classList.toggle('on',b.dataset.wm===st.m));
       $$('.wchip',chips).forEach((c,i)=>{const v=idf(W[i][1]);const o=st.m==='overlap';c.style.fontSize=(o?20:10+v*2.6)+'px';c.style.background=o?'#fff':'rgba(26,79,214,'+(v/12).toFixed(2)+')';c.style.color=!o&&v>6?'#fff':'';c.querySelector('small').textContent=o?'× 1':'× '+v.toFixed(1);c.querySelector('small').style.color=!o&&v>6?'#E6ECF7':'';});
-      fm.innerHTML=st.m==='overlap'?'score = <span class="p1">|shared tokens|</span> / √(|query tokens| × |chunk tokens|)<br><span class="c" style="color:var(--muted)">every shared word counts 1 · short chunks get a boost</span>'
-        :'score = <span class="p3">Σ idf(shared tokens)</span> / ( √<span class="p3">Σ idf(all chunk tokens)</span> + 1 )<br><span style="color:var(--muted)">idf(t) = log(1 + N / df(t)) · computed once, nothing trained</span>';
+      fm.innerHTML=st.m==='overlap'?"<div class=\"fxrow\"><span class=\"fx\"><span class=\"fn\">overlap</span>(<i>q</i>, <i>c</i>) = <span class=\"fr\"><span>|<i>q</i> \u2229 <i>c</i>|</span><span><span class=\"rt\">\u221a<span>|<i>q</i>| \u00b7 |<i>c</i>|</span></span></span></span></span></div><div class=\"lg\"><span><b><i>q</i></b>the question's tokens</span><span><b><i>c</i></b>the chunk's tokens</span><span><b>|\u2026|</b>how many</span><span><b><i>q</i> \u2229 <i>c</i></b>tokens in both</span></div><div class=\"lg2\">Every shared word counts 1. Dividing by the square root gives short chunks a boost.</div>":"<div class=\"fxrow\"><span class=\"fx\"><span class=\"fn\">idf</span>(<i>t</i>) = log(1 + <span class=\"fr\"><span><i>N</i></span><span>df(<i>t</i>)</span></span>)</span><span class=\"fx\"><span class=\"fn\">score</span>(<i>q</i>, <i>c</i>) = <span class=\"fr\"><span><span class=\"op\">\u03a3</span><sub><i>t</i> \u2208 <i>q</i>\u2229<i>c</i></sub> idf(<i>t</i>)</span><span><span class=\"rt\">\u221a<span><span class=\"op\">\u03a3</span><sub><i>t</i> \u2208 <i>c</i></sub> idf(<i>t</i>)</span></span> + 1</span></span></span></div><div class=\"lg\"><span><b><i>t</i></b>a token</span><span><b><i>N</i></b>chunks in the index (25,588)</span><span><b>df(<i>t</i>)</b>chunks that contain <i>t</i></span><span><b>\u03a3</b>add up</span><span><b>log</b>natural logarithm</span></div><div class=\"lg2\">A shared word adds its weight. The chunk's own total weight plays the role of its length. Computed once from the index: nothing is trained.</div>";
+
       const df=Math.max(1,Math.round(Math.pow(N,st.v/1000)));$('#dfR').value=st.v;$('#dfV').textContent=df.toLocaleString('en');$('#idfV').textContent=idf(df).toFixed(2);
       dot.setAttribute('cx',lx(df));dot.setAttribute('cy',ly(idf(df)));}
     const set=(p,l)=>{Object.assign(st,p);draw();if(l)bc('wm',p);};H.wm=p=>set(p,false);
@@ -2435,7 +2579,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       if(m==='idf'){const a=sh.reduce((s,t)=>s+IDF[t],0),w=[...ts[i]].reduce((s,t)=>s+IDF[t],0);return a/(Math.sqrt(w)+1);}
       let tot=0;sh.forEach(t=>{const f=tf[i][t],nm=1.5*(1-.75+.75*len[i]/avg);tot+=IDFB[t]*f*2.5/(f+nm);});return tot;}
     RLAPI={C:C,score:score,tokens:tokens};
-    const PRE=[['Bernadette','To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?','Saint Bernadette Soubirous'],['French town','In which French town did Mary appear in 1858?','Lourdes'],['Grotto','What is the Grotto at Notre Dame?','a Marian place of prayer and reflection'],['Tour','Which race crosses France and the Pyrenees in July?','Tour de France']];
+    const PRE=[['Bernadette','To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?','Saint Bernadette Soubirous'],['French town','In which French town did Mary appear in 1858?','Lourdes'],['Paraphrase','Which young woman had visions of the mother of Jesus in the Pyrenees?','Saint Bernadette Soubirous'],['Tour','Which race crosses France and the Pyrenees in July?','Tour de France']];
     const inp=$('#rlIn');stopKeys(inp);let gold='';
     $('#rlPre').innerHTML=PRE.map((p,i)=>'<button class="tg sm2" data-rp="'+i+'">'+p[0]+'</button>').join('');
     const lists=$$('.rl-list',S);
@@ -2460,7 +2604,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     function draw(){const k=st.k;let hit=0,rr=0;$('#rmK').value=k;$('#rmKV').textContent=k;$('#rmK2').textContent=k;
       $$('.rmq',rows).forEach((row,r)=>{const p=st.pos[r];$$('.sl',row).forEach(c=>{const v=+c.dataset.c;c.classList.toggle('rel',v>0&&v===p);c.classList.toggle('on',v===0&&p===0);c.classList.toggle('cut',v>k);});
         const h=p>0&&p<=k;if(h){hit++;rr+=1/p;}row.querySelector('.out1').innerHTML=h?'<span class="yes">✓</span>':'<span class="no">✗</span>';row.querySelector('.out2').textContent=h?(1/p).toFixed(2):'0';});
-      $('#rmRec').textContent=(hit/5).toFixed(2);$('#rmMrr').textContent=(rr/5).toFixed(2);}
+      $('#rmRec').textContent=(hit/5).toFixed(2);$('#rmMrr').textContent=(rr/5).toFixed(2);$('#rmW1').textContent='now: '+hit+' / 5 = '+(hit/5).toFixed(2);$('#rmW2').textContent='now: ('+st.pos.map(p=>p>0&&p<=k?(1/p).toFixed(2).replace(/0+$/,'').replace(/\.$/,''):'0').join(' + ')+') / 5 = '+(rr/5).toFixed(2);}
     const set=(p,l)=>{Object.assign(st,p);draw();if(l)bc('rm',p);};H.rm=p=>set(p,false);
     $$('.rmq',rows).forEach((row,r)=>$$('.sl',row).forEach(c=>c.onclick=()=>{const pos=st.pos.slice();pos[r]=+c.dataset.c;set({pos:pos},true);}));
     $('#rmK').oninput=e=>set({k:+e.target.value},true);draw();})();
@@ -2474,9 +2618,8 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     $$('[data-rk]',S).forEach(b=>b.onclick=()=>{k=+b.dataset.rk;upd();bc('rk',k);});H.rk=v=>{k=v;upd();};
     onStep('resSlide',(st,en)=>{if(en&&st===0)k=5;s=st;upd();});})();
   (function(){const S=$('#leverSlide');if(!S)return;
-    const draw=gbars($('#lvBars'),[['A · window · overlap'],['window · bm25'],['B · sentence · bm25'],['sentence · overlap']],.85,false);
     let vote=null,s=0;
-    const upd=()=>{$$('.vbtn',S).forEach(b=>{b.classList.toggle('on',b.dataset.v===vote);b.classList.toggle('win',s>=1);});draw([[.693],[.847],[.697],[.563]],s>=1);};
+    const upd=()=>{$$('.vbtn',S).forEach(b=>{b.classList.toggle('on',b.dataset.v===vote);b.classList.toggle('win',s>=1);});};
     $$('.vbtn',S).forEach(b=>b.onclick=()=>{vote=b.dataset.v;upd();bc('lv',vote);});H.lv=v=>{vote=v;upd();};
     onStep('leverSlide',(st,en)=>{if(en&&st===0)vote=null;s=st;upd();});})();
 
@@ -2491,8 +2634,8 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
     function draw(){$('#cbK').value=st.k;$('#cbW').value=st.w;$('#cbKV').textContent=st.k;$('#cbWV').textContent=st.w;
       let used=0;const kept=[];$$('.cbr',rows).forEach((r,i)=>{let s;if(i>=st.k)s='beyond';else if(used+L[i]>st.w)s='skip';else{s='kept';used+=L[i];kept.push(i);}
         r.className='cbr '+s;r.querySelector('.st').textContent=s==='kept'?'✓ kept':s==='skip'?'✗ too big':'beyond k';});
-      bk.innerHTML='<span class="cap3">'+used+' / '+st.w+' words</span>'+kept.map(i=>'<div class="seg" style="width:'+(100*L[i]/st.w)+'%;background:'+COL[i]+'">#'+(i+1)+'</div>').join('');
-      $('#cbSum').textContent=kept.length+' chunks kept · '+used+' words';
+      bk.innerHTML=kept.map(i=>'<div class="seg" style="width:'+(100*L[i]/st.w)+'%;background:'+COL[i]+'">#'+(i+1)+'</div>').join('');
+      $('#cbSum').textContent=kept.length+' chunks kept · '+used+' of '+st.w+' words';{let u=0;const w=[];for(let i=0;i<st.k;i++){const t=u+L[i];if(t>st.w)w.push('<span class="no">#'+(i+1)+' '+u+' + '+L[i]+' = '+t+' &gt; '+st.w+' ✗ skip</span>');else{u=t;w.push('<span class="ok">#'+(i+1)+' + '+L[i]+' = '+u+' ✓</span>');}}$('#cbWhy').innerHTML='<b>running total, budget '+st.w+':</b>'+w.join('');}
       $('#cbCtx').innerHTML=kept.map(i=>'<b>['+IDS[i]+']</b> '+esc(TXT[i])).join('<br>')||'(empty context)';}
     const set=(p,l)=>{Object.assign(st,p);draw();if(l)bc('cb',p);};H.cb=p=>set(p,false);
     $('#cbK').oninput=e=>set({k:+e.target.value},true);$('#cbW').oninput=e=>set({w:+e.target.value},true);draw();})();
@@ -2624,7 +2767,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
 
   // ---------- reading results ----------
   (function(){const S=$('#rrSlide');if(!S)return;const el=$('#rrLines'),pn=$('#rrPanel');const T=c=>c?'T':'<span class="F">F</span>';
-    const SHOW=[0,1,3,6,8,11,16,17,21,23,24,29];// 12 of the 30 lines, one or more per pattern
+    const SHOW=[0,1,6,8,11,13,16,17,21,23,24,29];// 12 of the 30 lines, one or more per pattern
     el.innerHTML=SHOW.map(i=>{const r=RUN[i],o=r.o.length>34?r.o.slice(0,33)+'…':r.o;return '<div data-i="'+i+'"'+(r.em?' class="ok"':'')+'>'+String(i+1).padStart(2,' ')+' EM'+r.em+' F1 '+r.f.toFixed(2)+' cite='+T(r.c)+' valid='+T(r.v)+' ev='+T(r.ev)+' | '+esc(o)+'</div>';}).join('');
     const st={i:null,g:null};
     function draw(){$$('div',el).forEach(d=>d.classList.toggle('on',+d.dataset.i===st.i));if(st.i==null){pn.innerHTML='<p class="sm muted" style="margin:0">Click a line on the left.</p><p class="sm" style="margin:0"><b>Pattern guide</b><br>EM1 · valid · ev=T → everything worked<br>EM0, high F1, ev=T → right idea, wrong span<br>EM0, F1 0, ev=T → generation failure<br>ev=F, no abstention → answered without evidence<br>valid=F → invented source</p>';return;}
@@ -2632,7 +2775,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
       pn.innerHTML='<div class="row2"><b>question</b>'+esc(r.q)+'</div><div class="row2"><b>gold</b><strong>'+esc(r.g)+'</strong></div><div class="row2"><b>said</b><span class="mono" style="font-size:13.5px">'+esc(r.o)+'</span></div>'+
         '<div class="row2"><b>flags</b><span class="pill '+(r.em?'ok':'bad')+'">EM '+r.em+'</span> <span class="pill mut">F1 '+r.f.toFixed(2)+'</span> <span class="pill '+(r.ev?'ok':'bad')+'">ev='+(r.ev?'T':'F')+'</span>'+(r.ab?' <span class="pill info">abstained</span>':'')+'</div>'+
         '<div class="sc-lab" style="margin:4px 0 0">Which category?</div><div class="cats">'+Object.keys(CAT).map(k=>'<button data-c="'+k+'" class="'+(st.g?(k===c?'right':(k===st.g?'wrong':'')):'')+'">'+CAT[k][0]+'</button>').join('')+'</div>'+
-        (st.g?'<div class="verdict '+(st.g===c?'ok':'bad')+'" style="margin-top:4px"><p>'+(st.g===c?'✓ ':'✗ It\'s <strong>'+CAT[c][0]+'</strong>. ')+(c==='ok'?'Evidence found, span extracted, source cited.':CAT[c][2])+(st.i===16?' (Here "fifth" vs "5th": the normalization covers number words, not ordinals. The metric, not the model, made this mistake: exercise 10, a language model as judge, catches it.)':st.i===23?' (No citation at all: has_citation catches this one.)':'')+'</p></div>':'');
+        (st.g?'<div class="verdict '+(st.g===c?'ok':'bad')+'" style="margin-top:4px"><p>'+(st.g===c?'✓ ':'✗ It\'s <strong>'+CAT[c][0]+'</strong>. ')+(st.i===16?'That is what the rule says: exact match 0, and F1 0.50 because only "generation" matches. But "fifth generation" <b>is</b> the right answer: the normalization turns "three" into "3", not "fifth" into "5th". The metric made the mistake, not the model; exercise 10, a language model as judge, catches it.':c==='ok'?'Evidence found, span extracted, source cited.':CAT[c][2])+(st.i===16?'':st.i===23?' (No citation at all: has_citation catches this one.)':'')+'</p></div>':'');
       $$('.cats button',pn).forEach(b=>b.onclick=()=>set({g:b.dataset.c},true));}
     const set=(p,l)=>{Object.assign(st,p);draw();if(l)bc('rr',p);};H.rr=p=>set(p,false);
     $$('div',el).forEach(d=>d.onclick=()=>set({i:+d.dataset.i,g:null},true));draw();})();
@@ -2894,10 +3037,13 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
   function elapsed(){return acc+(t0?(Date.now()-t0)/1000:0);}
   function updPresenter(){
     const n=slides[cur].querySelector('aside.notes');
-    const html=n?n.innerHTML.replace(/<p>(ASK|DO|TIP|KEY|EXTRA)( \([^)]*\))?:/g,(m,c,x)=>'<p class="pc-'+c.toLowerCase()+'"><span class="cue '+c.toLowerCase()+'-c">'+(c==='KEY'?'Say this':c==='EXTRA'?'Extra':c)+(x||'')+':</span>'):'<p class="muted">No notes.</p>';
+    const LBL={KEY:'Say this',EXTRA:'Extra:',FX:'Formula',NEXT:'Next →','NEXT-SKIP':'Next, skipping the optional slide →'};
+    const html=n?n.innerHTML.replace(/<p>(ASK|DO|TIP|KEY|EXTRA|FX|NEXT-SKIP|NEXT)( \([^)]*\))?:/g,(m,c,x)=>'<p class="pc-'+c.toLowerCase()+'"><span class="cue '+c.toLowerCase()+'-c">'+(LBL[c]||(c+(x||'')+':'))+'</span> '):'<p class="muted">No notes.</p>';
     const ids=(GL.m[slides[cur].dataset.title]||[]);
     const o=slides[cur].dataset.opt?'<p class="optb">Optional slide · '+minsAll[cur]+' min — do it only if you\'re on time.'+(slides[cur].dataset.bridge?' If you skip it, say: <i>'+slides[cur].dataset.bridge+'</i>':'')+'</p>':'';
     $('#pnotes').innerHTML=o+html+(ids.length?'<div id="pglos"><h5>If a student asks</h5>'+ids.map(glHTML).join('')+'</div>':'');
+    {const ni2=cur<slides.length-1?nextIdx(cur):-1,skipping=ni2>cur+1,alt=$('#pnotes .pc-next-skip');
+     if(alt){if(skipping)$$('#pnotes .pc-next').forEach(e=>e.style.display='none');else alt.style.display='none';}}
     const nf=nfr(cur);
     $('#pcur').textContent=(cur+1)+'. '+slides[cur].dataset.title+(isOpt(cur)?'  · optional':'')+(nf?'  — step '+step+'/'+nf:'');
     const ni=cur<slides.length-1?nextIdx(cur):-1, pn=$('#pnext');
@@ -2924,7 +3070,7 @@ svg text[font-family="IBM Plex Mono"]{font-family:var(--mono)}
   H.opt=v=>{skipOpt=!!v;optUI();};
   function toggleOpt(){skipOpt=!skipOpt;bc('opt',skipOpt?1:0);optUI();}
   if(optBtn)optBtn.onclick=()=>{optBtn.blur();toggleOpt();};
-  document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]'))return;if(e.key==='o'||e.key==='O')toggleOpt();});
+  document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]'))return;if(HAS_NOTES&&(e.key==='o'||e.key==='O'))toggleOpt();});
 
   fit(); go(fromHash(), 0);
 })();
