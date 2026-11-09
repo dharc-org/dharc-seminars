@@ -5,7 +5,7 @@ import { pastEditions } from '../config/editions.js'
 const ANCHORS = [
   { href: '#program', label: 'Program' },
   { href: '#about', label: 'About' },
-  { href: '#committee', label: 'Scientific Committee' },
+  { href: '#committee', label: 'Organisation' },
 ]
 
 export default function Nav() {

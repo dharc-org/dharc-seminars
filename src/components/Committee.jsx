@@ -1,4 +1,4 @@
-// Hardcoded content — placeholder centres and committee members.
+// Hardcoded content — involved centres, organisers, and the wider organisation.
 const centres = [
   {
     name: "/DH.arc — Digital Humanities Advanced Research Centre",
@@ -11,6 +11,39 @@ const centres = [
     note: "University of Copenhagen · partner research centre",
     url: "https://cdch.ku.dk/",
     logo: "./logos/cdch.svg",
+  },
+];
+
+const organisers = [
+  {
+    name: "Gianmarco Spinaci",
+    affiliation: "PhD candidate, University of Bologna - INF/01",
+    main: true,
+  },
+  {
+    name: "Erica Andreose",
+    affiliation: "PhD candidate, University of Bologna - M-STO/08",
+    main: true,
+  },
+  {
+    name: "Matteo Guenci",
+    affiliation: "PhD candidate, University of Bologna - INF/01",
+  },
+  {
+    name: "Enrica Bruno",
+    affiliation: "PhD candidate, University of Bologna - M-STO/08",
+  },
+  {
+    name: "Remo Grillo",
+    affiliation: "PhD candidate, University of Bologna - INF/01",
+  },
+  {
+    name: "Tommaso Battisti",
+    affiliation: "PhD candidate, University of Bologna - M-STO/08",
+  },
+  {
+    name: "Andrea Schimmenti",
+    affiliation: "Teaching tutor, University of Bologna - INF/01",
   },
 ];
 
@@ -68,9 +101,29 @@ export default function Committee() {
     <section id="committee" className="border-t border-border">
       <div className="mx-auto max-w-5xl px-8 py-20 md:py-24">
         <div className="grid grid-cols-1 gap-x-12 gap-y-14 md:grid-cols-2">
-          {/* Involved Centres */}
+          {/* Left column: Involved Centres + Organisers */}
           <div>
             <h2 className="mb-8 font-heading text-2xl font-bold md:text-3xl">
+              Organisation
+            </h2>
+            <ul className="space-y-4">
+              {organisers.map((o) => (
+                <li key={o.name} className="flex flex-col">
+                  <span className="font-body text-lg text-text-base">
+                    {o.name}
+                    {o.main && (
+                      <span className="ml-2 align-middle font-body text-xs font-medium uppercase tracking-wider text-accent">
+                        Main organiser
+                      </span>
+                    )}
+                  </span>
+                  <span className="font-body text-sm italic text-text-muted">
+                    {o.affiliation}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <h2 className="mb-8 mt-14 font-heading text-2xl font-bold md:text-3xl">
               Involved Centres
             </h2>
             <ul className="space-y-6">
@@ -108,10 +161,10 @@ export default function Committee() {
             </ul>
           </div>
 
-          {/* Scientific Committee */}
+          {/* Right column: Organisation */}
           <div>
             <h2 className="mb-8 font-heading text-2xl font-bold md:text-3xl">
-              Scientific Committee
+              Scientific committee
             </h2>
             <ul className="space-y-4">
               {members.map((member) => (
@@ -127,19 +180,26 @@ export default function Committee() {
             </ul>
 
             <p className="mt-8 max-w-xl font-body text-base leading-relaxed text-text-muted">
-              The composition of the committee reflects the{" "}
+              The composition of the organisation reflects the{" "}
               <span className="italic text-accent font-medium">
                 interdisciplinary nature of the seminar
               </span>
-              , spanning the different areas and including representatives of
-              the partner research centre to ensure scientific coordination
-              between the two institutions.
+              , spanning the different areas and including representatives of the
+              partner research centre to ensure scientific coordination between
+              the two institutions.
             </p>
 
             <div className="mt-16 max-w-3xl font-body text-lg leading-relaxed text-text-muted">
               <p className="max-w-3xl font-body text-lg leading-relaxed text-text-muted">
                 Contacts:{" "}
-                <a className="font-medium" href="mailto:aidhdialogue2026@gmail.com">aidhdialogue2026@gmail.com</a>.</p>
+                <a
+                  className="font-medium"
+                  href="mailto:aidhdialogue2026@gmail.com"
+                >
+                  aidhdialogue2026@gmail.com
+                </a>
+                .
+              </p>
             </div>
           </div>
         </div>
